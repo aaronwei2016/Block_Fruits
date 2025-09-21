@@ -1,7 +1,8 @@
 # Block Fruits
 New Thunder fruit!
-The RIP Commander Beckons on his throne...
-RIP Update is Here!
+The RIP Commander Seeks For Revenge
+
+Thunder Event Is Out!
 
 Press code<>/Download ZIP
 
