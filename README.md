@@ -2,6 +2,13 @@
 New Thunder fruit!
 The RIP Commander Seeks For Revenge
 
+Bugs :
+
+1.Fruit [Enter] attacks not doing damage
+2.Clicking not working
+
+
+
 
 
 
