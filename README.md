@@ -7,7 +7,8 @@ Press code<>/Download ZIP
 
 
 
-<img width="300" height="200" alt="rip_update" src="https://github.com/user-attachments/assets/513c0b72-70fa-4f6a-9e91-6523b243b0ae" />
+
+<img width="300" height="168" alt="thunderupdate" src="https://github.com/user-attachments/assets/e2b4365f-0967-47d5-bcfc-4b5100adb6e7" />
 
 
 
