@@ -19,6 +19,10 @@ Cooming soon :
 
 2.DRAGON update
 
+
+<img width="150" height="145" alt="Dragon_%28East%29_Fruit" src="https://github.com/user-attachments/assets/d2523274-29dd-4ef4-bd8a-5ac7d8bae355" />
+
+
 3.Buddha Rework 
 
 
