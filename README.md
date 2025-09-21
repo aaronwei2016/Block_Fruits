@@ -3,7 +3,6 @@ New Thunder fruit!
 The RIP Commander Seeks For Revenge
 
 
-Press code<>/Download ZIP
 
 
 
