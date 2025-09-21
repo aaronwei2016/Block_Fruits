@@ -36,4 +36,16 @@ Cooming soon :
 
 <img width="100" height="100" alt="buhhdafruit" src="https://github.com/user-attachments/assets/0396bc3e-3615-489f-920d-aa8abab1c5ef" />
 
+How to upgrde your fruits damage:
 
+    head to The Jungle,
+
+    go to the ability Teacher, and press e, and select "Yes"
+
+
+<img width="242" height="345" alt="ability_teacher" src="https://github.com/user-attachments/assets/46a6328b-5374-448d-8b96-4f8a425d610a" />
+
+
+
+
+    
