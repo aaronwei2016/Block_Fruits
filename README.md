@@ -26,10 +26,9 @@ If game is glitching:
 Cooming soon :
 
 
-1.DRAGON update
+1.???
 
 
-<img width="150" height="145" alt="Dragon_%28East%29_Fruit" src="https://github.com/user-attachments/assets/d2523274-29dd-4ef4-bd8a-5ac7d8bae355" />
 
 2.BUDDHA event 
 
