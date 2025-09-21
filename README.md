@@ -45,4 +45,17 @@ go to the ability Teacher, and press e, and select "Yes"
 
 
 
-    
+[Islands]
+
+1.Pirate Starter Village
+
+2.Jungle
+
+3.Frozen Island
+
+4.Kitsune Island
+
+5.Hells Palace
+
+6.Celestal Domain
+___________________
