@@ -17,6 +17,10 @@ Cooming soon :
 
 1.THUNDER Rework
 
+
+<img width="150" height="150" alt="Lightning_Fruit" src="https://github.com/user-attachments/assets/417ef99a-24f6-40b6-9f39-8aa921439fcb" />
+
+
 2.DRAGON update
 
 
