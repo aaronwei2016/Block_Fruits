@@ -904,16 +904,16 @@ def draw_quest_npc():
                 questing = not questing
  
 wispy = pygame.image.load("fruits/attacks/wisp.png")
-pain = pygame.image.load("updates/rip_update.png")
+pain = pygame.image.load("updates/thunderupdate.png")
 updates = [
     {
         "image": pain,
         "y_pos": 60,
-        "name": "RIP Update",
+        "name": "THUNDER Update",
         "log": [
-            "Pain V2",
+            "Thunder",
             "Removed M1 Attacks",
-            "RIP Commander Boss",
+            "Blox Fruit Gacha",
             "RIP Commander Moveset"
         ]
     }
@@ -945,8 +945,8 @@ def show_updates():
         screen.blit(update["image"], (290, update["y_pos"]))
         pygame.draw.rect(screen, (255, 255, 0), (290, update["y_pos"] - 40, update["image"].get_width(), 40))
         screen.blit(label, (305, update["y_pos"] - 30))
-        pygame.draw.rect(screen, (0, 0, 0), (290, update["y_pos"] + 200, 300, 150))
-        y22 = update["y_pos"] + 210
+        pygame.draw.rect(screen, (0, 0, 0), (290, update["y_pos"] + 160, 300, 150))
+        y22 = update["y_pos"] + 170
         for log in update["log"]:
             label = super_small.render(log, True, (255, 255, 0))
             screen.blit(label, (300, y22))
@@ -1867,3 +1867,4 @@ while running:
 save()
 pygame.quit()
     
+
