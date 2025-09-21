@@ -23,7 +23,7 @@ Cooming soon :
 <img width="150" height="145" alt="Dragon_%28East%29_Fruit" src="https://github.com/user-attachments/assets/d2523274-29dd-4ef4-bd8a-5ac7d8bae355" />
 
 
-3.Buddha Rework 
+3.BUDDHA Rework 
 
 
 <img width="100" height="100" alt="buhhdafruit" src="https://github.com/user-attachments/assets/0396bc3e-3615-489f-920d-aa8abab1c5ef" />
