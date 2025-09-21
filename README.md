@@ -14,5 +14,10 @@ Press code<>/Download ZIP
 
 
 Cooming soon :
+
 1.THUNDER Rework
+
 2.DRAGON update
+
+3.Buddha Rework <img width="100" height="100" alt="buhhdafruit" src="https://github.com/user-attachments/assets/0396bc3e-3615-489f-920d-aa8abab1c5ef" />
+
