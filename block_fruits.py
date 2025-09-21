@@ -536,11 +536,12 @@ class Enemy(pygame.sprite.Sprite):
         self.xp_given = xp
         self.reward = reward
         self.charge = 0
+        self.attacks = []
         
     def update(self):
         global enemy_attacked, direction_aim, hit, hit_timey, enemy_hit
         hit_timey = now - enemy_hit
-        if self.charge <= 0:
+        if self.charge <= 50:
             if self.rect.x < player["rect"].x and self.rect.x > player["rect"].x - self.range:
                 self.rect.x += self.speed
 
@@ -555,7 +556,7 @@ class Enemy(pygame.sprite.Sprite):
             hit = True
             self.charge = 100
         if self.charge > 0:
-            self.charge -= 3
+            self.charge -= 2
         if self.charge <= 0 and self.name != "RIP Commander" and self.rect.colliderect(player["rect"]) and not hit:
             player["health"] -= self.damage
             hit = True
@@ -564,6 +565,10 @@ class Enemy(pygame.sprite.Sprite):
             screen.blit(ww, (self.rect.x + self.image.get_width(), self.rect.y))
             screen.blit(ww, (self.rect.x, self.rect.y - self.image.get_height()))        
             screen.blit(ww, (self.rect.x - self.image.get_width(), self.rect.y))
+            screen.blit(ww, (self.rect.x - self.image.get_width(), self.rect.y + self.image.get_height()))
+            screen.blit(ww, (self.rect.x + self.image.get_width(), self.rect.y + self.image.get_height()))
+            screen.blit(ww, (self.rect.x + self.image.get_width(), self.rect.y - self.image.get_height()))        
+            screen.blit(ww, (self.rect.x - self.image.get_width(), self.rect.y - self.image.get_height()))
         if attack_rect and self.rect.colliderect(attack_rect) and not enemy_attacked:
             self.health -= player["damage"]
             if direction_aim == "up":
@@ -1172,10 +1177,10 @@ island_fruits = [
             "type": "PAIN",
             "damage": 300,
             "normal": rubber_z,
-            "special": rubber_z,
-            "special_name": "Angony Chase",
+            "special": chase_z,
+            "special_name": "Tornament Chase",
             "specialtwo": ultra_z,
-            "special_nametwo": "Demonic Erupt",
+            "special_nametwo": "Angony Release",
             "range": 10,
             "cool": 4
         }
@@ -1735,7 +1740,7 @@ while running:
         screen.blit(labe2, (width - 181, height - 287))
         if attacking and not clicked:
            clicked = True
-           if atk_elapsed <= 100 and player["current_fruit"] != "THUNDER" and player["current_fruit"]["type"] != "MAGMA" and player["current_fruit"]["type"] != "PAIN V2" and player["current_fruit"]["type"] != "PAIN":
+           if atk_elapsed <= 100 and player["current_fruit"]["type"] != "THUNDER" and player["current_fruit"]["type"] != "MAGMA" and player["current_fruit"]["type"] != "PAIN V2" and player["current_fruit"]["type"] != "PAIN":
                if direction_aim == "up":
                    if player["current_fruit"]["up_atk"] is not None:
                        attack_rect = pygame.Rect(center_x - pic.get_width() / 2, center_y - pic.get_height() / 2 - 40, 90, 90)
@@ -1760,7 +1765,12 @@ while running:
                        screen.blit(fruit["right_atk"], (center_x - pic.get_width() / 2 + 120, center_y - pic.get_height() / 2 + player["current_fruit"]["left_atk"].get_height() / 2))
                    else:
                        attack_rect = pygame.Rect(center_x - pic.get_width() / 2, center_y - pic.get_height() / 2, pic.get_width(), pic.get_height())
-           else:
+           if atk_elapsed <= 100:
+               if player["current_fruit"]["type"] == "PAIN" or player["current_fruit"]["type"] == "THUNDER" or player["current_fruit"]["type"] == "MAGMA":
+                    attack_rect = pygame.Rect(center_x - pic.get_width() / 2, center_y - pic.get_height() / 2, pic.get_width(), pic.get_height())
+
+                                                                                                                                    
+           if elapsed >= 101:
                attacking = False
                start_atk = pygame.time.get_ticks()
                attack_rect = None
@@ -1867,4 +1877,5 @@ while running:
 save()
 pygame.quit()
     
+
 
