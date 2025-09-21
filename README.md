@@ -18,6 +18,7 @@ Press code<>/Download ZIP
 If game is glitching:
 
 1.press the top left (X) button
+
 2.press Command+s and then f5 is on macos
 
 
