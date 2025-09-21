@@ -520,6 +520,7 @@ def show_fruits():
                 screen.blit(label, (fruit["rect"].x, fruit["rect"].y + fruit["image"].get_height() + 19))
 
 ww = pygame.image.load("fruits/attacks/wisp.png")
+w2 = pygame.image.load("fruits/attacks/Lightning.png")
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, xp, name, hp, speed, damage, lvl, image, x, y, r, reward):
         super().__init__()
@@ -565,10 +566,10 @@ class Enemy(pygame.sprite.Sprite):
             screen.blit(ww, (self.rect.x + self.image.get_width(), self.rect.y))
             screen.blit(ww, (self.rect.x, self.rect.y - self.image.get_height()))        
             screen.blit(ww, (self.rect.x - self.image.get_width(), self.rect.y))
-            screen.blit(ww, (self.rect.x - self.image.get_width(), self.rect.y + self.image.get_height()))
-            screen.blit(ww, (self.rect.x + self.image.get_width(), self.rect.y + self.image.get_height()))
-            screen.blit(ww, (self.rect.x + self.image.get_width(), self.rect.y - self.image.get_height()))        
-            screen.blit(ww, (self.rect.x - self.image.get_width(), self.rect.y - self.image.get_height()))
+            screen.blit(w2, (self.rect.x - self.image.get_width(), self.rect.y + self.image.get_height()))
+            screen.blit(w2, (self.rect.x + self.image.get_width(), self.rect.y + self.image.get_height()))
+            screen.blit(w2, (self.rect.x + self.image.get_width(), self.rect.y - self.image.get_height()))        
+            screen.blit(w2, (self.rect.x - self.image.get_width(), self.rect.y - self.image.get_height()))
         if attack_rect and self.rect.colliderect(attack_rect) and not enemy_attacked:
             self.health -= player["damage"]
             if direction_aim == "up":
@@ -624,13 +625,13 @@ messages = [
         "y_pos": 120
     },
     {
-        "name": "RIP EVENT IS HERE!",
+        "name": "THUNDER EVENT IS HERE!",
         "color": (180, 150, 255),
         "y_pos": 150
     },
     {
-        "name": "The RIP Commander Waits For A Worthy Oppentment.",
-        "color": (255, 0, 0),
+        "name": "The RIP Commander Charges His Wrath.",
+        "color": (0, 255, 0),
         "y_pos": 180
     },
     {
@@ -1877,5 +1878,3 @@ while running:
 save()
 pygame.quit()
     
-
-
