@@ -581,6 +581,19 @@ class Enemy(pygame.sprite.Sprite):
             else:
                 self.rect.x += 20
             enemy_attacked = True
+        if (
+            pygame.Rect(center_x - pic.get_width() / 2, center_y - pic.get_height() / 2, pic.get_width(), pic.get_height())
+            ).colliderect(self.rect) and attacking and not enemy_attacked:
+            self.health -= player["damage"]
+            if direction_aim == "up":
+                self.rect.y -= 20
+            elif direction_aim == "down":
+                self.rect.y += 20
+            elif direction_aim == "left":
+                self.rect.x -= 20
+            else:
+                self.rect.x += 20
+            enemy_attacked = True
             
         label = small.render(f"lvl{self.level}", True, (255, 255, 255))
         screen.blit(label, (self.rect.x - 2, self.rect.y - 20))
@@ -1716,7 +1729,7 @@ while running:
         pygame.draw.rect(screen, (120, 120, 120), (width - 290, center_y + 100, 140, 50), border_radius=0)
         screen.blit(pygame.font.Font(None, 40).render("No", True, (255, 255, 255)), (width - 270, center_y + 110))
 
-
+    
     if mode == "atk":
         pygame.draw.rect(screen, (100, 100, 100), (width - 200, height - 300, 200, 300), border_radius=9)
         if player["current_fruit"]:
@@ -1737,16 +1750,20 @@ while running:
         else:
             labe2 = font.render(f"{current_type}", True, (255, 255, 255))
         
-        player["speed"] = 3
+    
         screen.blit(labe2, (width - 181, height - 287))
         if attacking and not clicked:
            clicked = True
            if atk_elapsed <= 100:
                if player["current_fruit"]["type"] == "BUDDHA":
-                    pic = pygame.transform.scale(pic, (250, 250))
-                    player["image"] = pic
-                    transformed = True
-                    print("RUN")
+                   if not transformed:
+                       pic = pygame.transform.scale(pic, (pic.get_width() * 2, pic.get_height() * 2))
+                       player["image"] = pic
+                       transformed = True
+                   else:
+                       pic = pygame.transform.scale(pic, (pic.get_width() / 2, pic.get_height() / 2))
+                       player["image"] = pic
+                       transformed = False
                if player["current_fruit"]["type"] != "BUDDHA" and player["current_fruit"]["type"] != "THUNDER" and player["current_fruit"]["type"] != "MAGMA" and player["current_fruit"]["type"] != "PAIN V2" and player["current_fruit"]["type"] != "PAIN":
                    if direction_aim == "up":
                        if player["current_fruit"]["up_atk"] is not None:
