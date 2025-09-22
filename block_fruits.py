@@ -1054,7 +1054,7 @@ island_fruits = [
             "image": pygame.image.load("fruits/shopping/buhhdafruit.png"),
             "buying_img": pygame.image.load("fruits/buying/buhhdafruit.png"),
             "Name": "Buddha Fruit",
-            "cost": 7806,
+            "cost": 6,
             "bought": False,
             "rect": pygame.Rect(center_x - 100, center_y - 300, 155, 155),
             "img_rect": pygame.Rect(center_x - 100, center_y - 300, 70, 70),
@@ -1376,7 +1376,7 @@ def draw_NPC():
      
            
      
-
+transformed = False
 exiting = False
 def draw_UI():
     for island in islands:
@@ -1741,35 +1741,39 @@ while running:
         screen.blit(labe2, (width - 181, height - 287))
         if attacking and not clicked:
            clicked = True
-           if atk_elapsed <= 100 and player["current_fruit"]["type"] != "THUNDER" and player["current_fruit"]["type"] != "MAGMA" and player["current_fruit"]["type"] != "PAIN V2" and player["current_fruit"]["type"] != "PAIN":
-               if direction_aim == "up":
-                   if player["current_fruit"]["up_atk"] is not None:
-                       attack_rect = pygame.Rect(center_x - pic.get_width() / 2, center_y - pic.get_height() / 2 - 40, 90, 90)
-                       screen.blit(fruit["up_atk"], (center_x - pic.get_width() / 2, center_y - pic.get_height() / 2 - 40))
-                   else:
-                       attack_rect = pygame.Rect(center_x - pic.get_width() / 2, center_y - pic.get_height() / 2, pic.get_width(), pic.get_height())
-               elif direction_aim == "down":
-                   if player["current_fruit"]["down_atk"] is not None:
-                       attack_rect = pygame.Rect(center_x - pic.get_width() / 2, center_y - pic.get_height() / 2 + 80, 90, 90)
-                       screen.blit(fruit["down_atk"], (center_x - pic.get_width() / 2, center_y - pic.get_height() / 2 + 80))
-                   else:
-                       attack_rect = pygame.Rect(center_x - pic.get_width() / 2, center_y - pic.get_height(), pic.get_width(), pic.get_height())
-               if direction_aim == "left":
-                   if player["current_fruit"]["left_atk"] is not None:
-                       attack_rect = pygame.Rect(center_x - pic.get_width() / 2 - 40, center_y - pic.get_height() / 2, 90, 90)
-                       screen.blit(fruit["left_atk"], (center_x - pic.get_width() / 2 - 40, center_y - pic.get_height() / 2 + player["current_fruit"]["left_atk"].get_height() / 2))
-                   else:
-                       attack_rect = pygame.Rect(center_x - pic.get_width() / 2, center_y - pic.get_height() / 2, pic.get_width(), pic.get_height())
-               elif direction_aim == "right":
-                   if player["current_fruit"]["right_atk"] is not None:
-                       attack_rect = pygame.Rect(center_x + pic.get_width(), center_y - pic.get_height() / 2, 90, 90)
-                       screen.blit(fruit["right_atk"], (center_x - pic.get_width() / 2 + 120, center_y - pic.get_height() / 2 + player["current_fruit"]["left_atk"].get_height() / 2))
-                   else:
-                       attack_rect = pygame.Rect(center_x - pic.get_width() / 2, center_y - pic.get_height() / 2, pic.get_width(), pic.get_height())
            if atk_elapsed <= 100:
-               if player["current_fruit"]["type"] == "PAIN" or player["current_fruit"]["type"] == "THUNDER" or player["current_fruit"]["type"] == "MAGMA":
-                    attack_rect = pygame.Rect(center_x - pic.get_width() / 2, center_y - pic.get_height() / 2, pic.get_width(), pic.get_height())
+               if player["current_fruit"]["type"] == "BUDDHA":
+                    pic = pygame.transform.scale(pic, (250, 250))
+                    player["image"] = pic
+                    transformed = True
+                    print("RUN")
+               if player["current_fruit"]["type"] != "BUDDHA" and player["current_fruit"]["type"] != "THUNDER" and player["current_fruit"]["type"] != "MAGMA" and player["current_fruit"]["type"] != "PAIN V2" and player["current_fruit"]["type"] != "PAIN":
+                   if direction_aim == "up":
+                       if player["current_fruit"]["up_atk"] is not None:
+                           attack_rect = pygame.Rect(center_x - pic.get_width() / 2, center_y - pic.get_height() / 2 - 40, 90, 90)
+                           screen.blit(fruit["up_atk"], (center_x - pic.get_width() / 2, center_y - pic.get_height() / 2 - 40))
+                       else:
+                           attack_rect = pygame.Rect(center_x - pic.get_width() / 2, center_y - pic.get_height() / 2, pic.get_width(), pic.get_height())
+                   elif direction_aim == "down":
+                       if player["current_fruit"]["down_atk"] is not None:
+                           attack_rect = pygame.Rect(center_x - pic.get_width() / 2, center_y - pic.get_height() / 2 + 80, 90, 90)
+                           screen.blit(fruit["down_atk"], (center_x - pic.get_width() / 2, center_y - pic.get_height() / 2 + 80))
+                       else:
+                           attack_rect = pygame.Rect(center_x - pic.get_width() / 2, center_y - pic.get_height(), pic.get_width(), pic.get_height())
+                   if direction_aim == "left":
+                       if player["current_fruit"]["left_atk"] is not None:
+                           attack_rect = pygame.Rect(center_x - pic.get_width() / 2 - 40, center_y - pic.get_height() / 2, 90, 90)
+                           screen.blit(fruit["left_atk"], (center_x - pic.get_width() / 2 - 40, center_y - pic.get_height() / 2 + player["current_fruit"]["left_atk"].get_height() / 2))
+                       else:
+                           attack_rect = pygame.Rect(center_x - pic.get_width() / 2, center_y - pic.get_height() / 2, pic.get_width(), pic.get_height())
+                   elif direction_aim == "right":
+                       if player["current_fruit"]["right_atk"] is not None:
+                           attack_rect = pygame.Rect(center_x + pic.get_width(), center_y - pic.get_height() / 2, 90, 90)
+                           screen.blit(fruit["right_atk"], (center_x - pic.get_width() / 2 + 120, center_y - pic.get_height() / 2 + player["current_fruit"]["left_atk"].get_height() / 2))
+                       else:
+                           attack_rect = pygame.Rect(center_x - pic.get_width() / 2, center_y - pic.get_height() / 2, pic.get_width(), pic.get_height())
 
+                        
                                                                                                                                     
            if elapsed >= 101:
                attacking = False
