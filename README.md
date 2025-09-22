@@ -38,15 +38,9 @@ Cooming soon :
 
 
 
-How to upgrde your fruits damage:
+Since Buddha is reworked,
 
-head to The Jungle,
-
-go to the ability Teacher, and press e, and select "Yes"
-
-<img width="242" height="345" alt="ability_teacher" src="https://github.com/user-attachments/assets/46a6328b-5374-448d-8b96-4f8a425d610a" />
-
-
+if you press ENTER, You will transform into a giant buddha.
 
 
 [Islands]
