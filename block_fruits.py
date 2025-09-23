@@ -199,7 +199,9 @@ def rubber_z():
                     }
                 special_atks.append(special_atk)
         
-
+def super_z():
+    if player["current_fruit"]:
+        pass
 
 
 def ultra_z():
@@ -570,7 +572,7 @@ class Enemy(pygame.sprite.Sprite):
             screen.blit(w2, (self.rect.x + self.image.get_width(), self.rect.y + self.image.get_height()))
             screen.blit(w2, (self.rect.x + self.image.get_width(), self.rect.y - self.image.get_height()))        
             screen.blit(w2, (self.rect.x - self.image.get_width(), self.rect.y - self.image.get_height()))
-        if attack_rect and self.rect.colliderect(attack_rect) and not enemy_attacked:
+        if attack_rect and self.rect.colliderect(attack_rect):
             self.health -= player["damage"]
             if direction_aim == "up":
                 self.rect.y -= 20
@@ -583,7 +585,7 @@ class Enemy(pygame.sprite.Sprite):
             enemy_attacked = True
         if (
             pygame.Rect(center_x - pic.get_width() / 2, center_y - pic.get_height() / 2, pic.get_width(), pic.get_height())
-            ).colliderect(self.rect) and attacking and not enemy_attacked:
+            ).colliderect(self.rect) and attacking:
             self.health -= player["damage"]
             if direction_aim == "up":
                 self.rect.y -= 20
@@ -782,9 +784,9 @@ hps = [
     100,
     300,
     594,
-    1200,
-    2500,
-    5000
+    2200,
+    5000,
+    20000
 ]
     
 
@@ -937,8 +939,19 @@ updates = [
         ]
     }
 ]
-
-
+def transform_z():
+    global transformed, pic
+    if player["current_fruit"]["type"] == "BUDDHA":
+       if not transformed:
+           pic = pygame.transform.scale(pic, (pic.get_width() * 2, pic.get_height() * 2))
+           player["image"] = pic
+           player["block_fruits"][0]["damage"] = 400
+           transformed = True
+       else:
+           pic = pygame.transform.scale(pic, (pic.get_width() / 2, pic.get_height() / 2))
+           player["image"] = pic
+           transformed = False
+           player["block_fruits"][0]["damage"] = 9
 
 def chase_z():
     global direction_aim, direction
@@ -1077,11 +1090,11 @@ island_fruits = [
             "down_atk": pygame.image.load("fruits/attacks/buddha.png"),
             "type": "BUDDHA",
             "damage": 300,
-            "special": rubber_z,
-            "special_name": "Golden Palm",
+            "special": transform_z,
+            "special_name": "Shift",
             "special_image": pygame.image.load("fruits/special/buddha.png"),
-            "specialtwo": ultra_z,
-            "special_nametwo": "Hand Of God",
+            "specialtwo": rubber_z,
+            "special_nametwo": "Divine Statue",
             "range": 1,
             "cool": 6
         },
@@ -1366,11 +1379,11 @@ def draw_NPC():
             }
             screen.blit(gacha["image"], (gacha["rect"].x - 140, gacha["rect"].y - 100))
             if gacha["rect"].colliderect(player["rect"]) and not already_fruit:         
-                screen.blit(super_small.render("[E]Roll-$9000", True, (255, 255, 255)), (gacha["rect"].x, gacha["rect"].y - 90 + 190))
+                screen.blit(super_small.render("[E]Interact", True, (255, 255, 255)), (gacha["rect"].x, gacha["rect"].y - 90 + 190))
                 if key[pygame.K_e]:
                     if not clicked:
                         clicked = True
-                        roll()
+                        page = "rolling"
         key = pygame.key.get_pressed()
         screen.blit(blox_fruit_dealer["image"], blox_fruit_dealer["rect"])
         label = pygame.font.Font(None, 25).render(f"Block Fruit Dealer", True, (255, 255, 255))
@@ -1477,6 +1490,19 @@ while running:
                         page = "home"
                         chatting = False
                         already_fruit = False
+                if page == "rolling":
+                    if pygame.Rect(width - 290, center_y, 140, 50).collidepoint(pos):
+                        if player["lvl"] >= 15 and player["money"] >= 10000:
+                            player["money"] -= 10000
+                            roll()
+                            if transformed:
+                                pic = pygame.transform.scale(pic, (pic.get_width() / 2, pic.get_height() / 2))
+                                player["image"] = pic
+                                transformed = False
+                    elif pygame.Rect(width - 290, center_y + 100, 140, 50).collidepoint(pos):
+                        page = "home"
+                        chatting = False
+                        already_fruit = False
                 if page == "shop":
                     for fruit in island_fruits[-1]:
                         if page == "shop" and not clicky:
@@ -1490,6 +1516,10 @@ while running:
                                         items.remove(items[-1])
                                     buy([fruit])
                                     add(fruit["type"])
+                                    if transformed:
+                                        pic = pygame.transform.scale(pic, (pic.get_width() / 2, pic.get_height() / 2))
+                                        player["image"] = pic
+                                        transformed = False
                                     player["current_fruit"] = player["block_fruits"][-1]
                                     add_message(f"You Got Rewarded {fruit['Name']}!", (255, 0, 0), messages[-1]["y_pos"] + 30)
                                     save()   
@@ -1505,6 +1535,10 @@ while running:
                                         player["block_fruits"] = player["block_fruits"][:-1]
                                         items.remove(items[-1])
                                     buy([fruit])
+                                    if transformed:
+                                        pic = pygame.transform.scale(pic, (pic.get_width() / 2, pic.get_height() / 2))
+                                        player["image"] = pic
+                                        transformed = False
                                     add(fruit["type"])
                                     player["current_fruit"] = player["block_fruits"][-1]
                                     add_message(f"You Bought The {fruit['Name']}!", (255, 0, 0), messages[-1]["y_pos"] + 30)
@@ -1551,7 +1585,8 @@ while running:
             else:
                 island.spawn_enemys(1)
                 add_message("The RIP commander wins another Victory", (0, 0, 255), messages[-1]["y_pos"] + 30)
-            
+    if player["money"] < 0:
+        player["money"] = 0
     for island in islands:
         if island.name == "Pirate Starter Village":
             island.went = True
@@ -1704,7 +1739,8 @@ while running:
                     blox_coins += 200
                     add_message("The RIP Commander Dissapears, And Then Reappears...", (255, 0, 0), messages[-1]["y_pos"] + 30)
                 save()
-                    
+
+                               
     if key[pygame.K_RETURN] and mode == "atk" and not attacking:
         clicked = True
         attacking = True
@@ -1717,6 +1753,22 @@ while running:
         things = [
             "Upgrade your Fruits damage?",
             "Im not kidding Bro."
+        ]
+        y = center_y
+        pygame.draw.rect(screen, (120, 120, 120), (center_x - 170, center_y - 20, 400, 120))
+        for thing in things:
+            label = small.render(thing, True, (255, 255, 255))
+            screen.blit(label, (center_x - 150, y))
+            y += 40
+        pygame.draw.rect(screen, (120, 120, 120), (width - 290, center_y, 140, 50), border_radius=0)
+        screen.blit(pygame.font.Font(None, 40).render("Yes", True, (255, 255, 255)), (width - 270, center_y + 10))
+        pygame.draw.rect(screen, (120, 120, 120), (width - 290, center_y + 100, 140, 50), border_radius=0)
+        screen.blit(pygame.font.Font(None, 40).render("No", True, (255, 255, 255)), (width - 270, center_y + 110))
+    if page == "rolling":
+        things = [
+            "Hello, Im Zioles.",
+            "If you are level 15+,",
+            "I'll roll you a fruit."
         ]
         y = center_y
         pygame.draw.rect(screen, (120, 120, 120), (center_x - 170, center_y - 20, 400, 120))
@@ -1755,15 +1807,7 @@ while running:
         if attacking and not clicked:
            clicked = True
            if atk_elapsed <= 100:
-               if player["current_fruit"]["type"] == "BUDDHA":
-                   if not transformed:
-                       pic = pygame.transform.scale(pic, (pic.get_width() * 2, pic.get_height() * 2))
-                       player["image"] = pic
-                       transformed = True
-                   else:
-                       pic = pygame.transform.scale(pic, (pic.get_width() / 2, pic.get_height() / 2))
-                       player["image"] = pic
-                       transformed = False
+
                if player["current_fruit"]["type"] != "BUDDHA" and player["current_fruit"]["type"] != "THUNDER" and player["current_fruit"]["type"] != "MAGMA" and player["current_fruit"]["type"] != "PAIN V2" and player["current_fruit"]["type"] != "PAIN":
                    if direction_aim == "up":
                        if player["current_fruit"]["up_atk"] is not None:
@@ -1863,6 +1907,7 @@ while running:
         if player["current_fruit"]["special"] and cool_down <= 0:
             if player["current_fruit"]["special_name"] != "":
                 player["current_fruit"]["special"]()
+
             clicked = True
             cool_down = 100
     elif key[pygame.K_x] and mode == "atk" and not attacking and not clicked:
@@ -1899,3 +1944,4 @@ while running:
 save()
 pygame.quit()
     
+
