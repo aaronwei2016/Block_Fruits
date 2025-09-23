@@ -30,7 +30,7 @@ If game is glitching:
 
 Cooming soon :
 
-1.Thunder God Boss
+1.RAID BOSS 
 
 
 2.Fighting Styles(Sanguine Art, Divine Art, Electric)
