@@ -40,7 +40,7 @@ Cooming soon :
 
 Since Buddha is reworked,
 
-if you press ENTER, You will transform into a giant buddha.
+if you press Z(Shift) with Buddha, You will transform into a giant buddha.
 
 
 [Islands]
