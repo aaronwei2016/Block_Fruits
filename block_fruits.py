@@ -947,13 +947,11 @@ def transform_z():
            player["image"] = pic
            player["block_fruits"][0]["damage"] = 400
            transformed = True
-           ultra_z()
        else:
            pic = pygame.transform.scale(pic, (pic.get_width() / 2, pic.get_height() / 2))
            player["image"] = pic
            transformed = False
            player["block_fruits"][0]["damage"] = 9
-           ultra_z()
 
 def chase_z():
     global direction_aim, direction
