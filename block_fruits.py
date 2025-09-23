@@ -947,11 +947,13 @@ def transform_z():
            player["image"] = pic
            player["block_fruits"][0]["damage"] = 400
            transformed = True
+           ultra_z()
        else:
            pic = pygame.transform.scale(pic, (pic.get_width() / 2, pic.get_height() / 2))
            player["image"] = pic
            transformed = False
            player["block_fruits"][0]["damage"] = 9
+           ultra_z()
 
 def chase_z():
     global direction_aim, direction
@@ -1092,7 +1094,7 @@ island_fruits = [
             "damage": 300,
             "special": transform_z,
             "special_name": "Shift",
-            "special_image": pygame.image.load("fruits/special/buddha.png"),
+            "special_image": pygame.image.load("fruits/attacks/buddha.png"),
             "specialtwo": rubber_z,
             "special_nametwo": "Divine Statue",
             "range": 1,
@@ -1944,4 +1946,3 @@ while running:
 save()
 pygame.quit()
     
-
