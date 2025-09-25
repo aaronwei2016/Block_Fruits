@@ -43,7 +43,7 @@ Since Buddha is reworked,
 if you press Z(Shift) with Buddha, You will transform into a giant buddha.
 
 
-___________________________
+____________________________________________________
 
 [Islands]
 
@@ -58,7 +58,7 @@ ___________________________
 5.Hells Palace
 
 6.Celestal Domain
-______________________________
+______________________________________________________
 
 
 
