@@ -1000,7 +1000,7 @@ def show_updates():
     for update in updates:
         label = small.render(f"{update['name']}", True, (0, 0, 0))
         screen.blit(update["image"], (290, update["y_pos"]))
-        pygame.draw.rect(screen, (255, 255, 0), (290, update["y_pos"] - 40, update["image"].get_width(), 40))
+        pygame.draw.rectect(screen, (255, 255, 0), (290, update["y_pos"] - 40, update["image"].get_width(), 40))
         screen.blit(label, (305, update["y_pos"] - 30))
         pygame.draw.rect(screen, (0, 0, 0), (290, update["y_pos"] + 160, 300, 150))
         y22 = update["y_pos"] + 170
@@ -1197,7 +1197,7 @@ island_fruits = [
             "image": pygame.image.load("fruits/shopping/Lightning_Fruit.png"),
             "buying_img": pygame.image.load("fruits/buying/kitsunefruit.png"),
             "Name": "Thunder Fruit",
-            "cost": 12999,
+            "cost": 0,
             "bought": False,
             "rect": pygame.Rect(center_x - 100, center_y - 300, 155, 155),
             "img_rect": pygame.Rect(center_x - 100, center_y - 300, 70, 70),
@@ -1215,26 +1215,26 @@ island_fruits = [
             "cool": 6
         },
         {
-            "image": pygame.image.load("fruits/shopping/painfruit.png"),
+            "image": pygame.image.load("fruits/shopping/Bomb_Fruit.png"),
             "buying_img": pygame.image.load("fruits/buying/kitsunefruit.png"),
-            "Name": "Pain Fruit",
+            "Name": "Bomb Fruit",
             "cost": 0,
             "bought": False,
             "rect": pygame.Rect(center_x - 100, center_y + 100, 155, 155),
             "img_rect": pygame.Rect(center_x - 100, center_y + 100, 70, 70),
-            "left_atk": pygame.transform.flip(wispy, True, False),
-            "right_atk": wispy,
-            "up_atk": pygame.transform.flip(wispy, True, False),
-            "down_atk": pygame.transform.flip(wispy, True, False),
-            "type": "PAIN",
-            "damage": 300,
+            "left_atk": pygame.image.load("fruits/attacks/bomb.png"),
+            "right_atk": pygame.image.load("fruits/attacks/bomb.png"),
+            "up_atk": pygame.image.load("fruits/attacks/bomb.png"),
+            "down_atk": pygame.image.load("fruits/attacks/bomb.png"),
+            "type": "BOMB",
+            "damage": 500,
             "normal": rubber_z,
-            "special": chase_z,
-            "special_name": "Tornament Chase",
-            "specialtwo": ultra_z,
-            "special_nametwo": "Angony Release",
+            "special": rubber_z,
+            "special_name": "Bomb Throw",
+            "specialtwo": chase_z,
+            "special_nametwo": "Targeted Bomb",
             "range": 10,
-            "cool": 4
+            "cool": 10
         }
     ],
 ##Celestal domain Fruits
@@ -1838,7 +1838,7 @@ while running:
            clicked = True
            if atk_elapsed <= 100:
 
-               if player["current_fruit"]["type"] != "BUDDHA" and player["current_fruit"]["type"] != "THUNDER" and player["current_fruit"]["type"] != "MAGMA" and player["current_fruit"]["type"] != "PAIN V2" and player["current_fruit"]["type"] != "PAIN":
+               if player["current_fruit"]["type"] != "BOMB" and player["current_fruit"]["type"] != "BUDDHA" and player["current_fruit"]["type"] != "THUNDER" and player["current_fruit"]["type"] != "MAGMA" and player["current_fruit"]["type"] != "PAIN V2" and player["current_fruit"]["type"] != "PAIN":
                    if direction_aim == "up":
                        if player["current_fruit"]["up_atk"] is not None:
                            attack_rect = pygame.Rect(center_x - pic.get_width() / 2, center_y - pic.get_height() / 2 - 40, 90, 90)
