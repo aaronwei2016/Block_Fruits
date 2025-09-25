@@ -43,6 +43,8 @@ Since Buddha is reworked,
 if you press Z(Shift) with Buddha, You will transform into a giant buddha.
 
 
+_________________
+
 [Islands]
 
 1.Pirate Starter Village
