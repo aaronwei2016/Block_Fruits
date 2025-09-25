@@ -1917,7 +1917,7 @@ while running:
                start_atk = pygame.time.get_ticks()
                attack_rect = None
     elif mode != "atk":
-        player["speed"] = 10
+        player["speed"] = 6
     for island in islands:
         for boat in boats:
             if page == "home":
