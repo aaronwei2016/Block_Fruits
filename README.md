@@ -57,3 +57,11 @@ if you press Z(Shift) with Buddha, You will transform into a giant buddha.
 
 6.Celestal Domain
 ___________________
+
+
+
+
+
+Bomb is released! It has the fastest cooldown in the game!
+
+but it does not have an ENTER attack.
