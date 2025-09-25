@@ -399,6 +399,52 @@ def super_z():
                 "rect": pygame.Rect(center_x - player["image"].get_width() - 240, 0, 90, 90)
             }
             special_atks.append(new_attack)
+            new_attack = {
+                "x": center_x - player["image"].get_width() / 2 - 340,
+                "y": 0,
+                "direction": "down",
+                "stamina": 2,
+                "image": player["current_fruit"]["down_atk"],
+                "rect": pygame.Rect(center_x - player["image"].get_width() - 340, 0, 90, 90)
+            }
+            special_atks.append(new_attack)
+        elif direction == "right":
+            new_attack = {
+                "x": center_x - player["image"].get_width() / 2 + 280,
+                "y": 0,
+                "direction": "down",
+                "stamina": 2,
+                "image": player["current_fruit"]["down_atk"],
+                "rect": pygame.Rect(center_x - player["image"].get_width() + 280, 0, 90, 90)
+            }
+            special_atks.append(new_attack)
+            new_attack = {
+                "x": center_x - player["image"].get_width() / 2 + 380,
+                "y": 0,
+                "direction": "down",
+                "stamina": 2,
+                "image": player["current_fruit"]["down_atk"],
+                "rect": pygame.Rect(center_x - player["image"].get_width() + 380, 0, 90, 90)
+            }
+            special_atks.append(new_attack)
+            new_attack = {
+                "x": center_x - player["image"].get_width() / 2 + 480,
+                "y": 0,
+                "direction": "down",
+                "stamina": 2,
+                "image": player["current_fruit"]["down_atk"],
+                "rect": pygame.Rect(center_x - player["image"].get_width() + 480, 0, 90, 90)
+            }
+            special_atks.append(new_attack)
+            new_attack = {
+                "x": center_x - player["image"].get_width() / 2 + 580,
+                "y": 0,
+                "direction": "down",
+                "stamina": 2,
+                "image": player["current_fruit"]["down_atk"],
+                "rect": pygame.Rect(center_x - player["image"].get_width() + 580, 0, 90, 90)
+            }
+            special_atks.append(new_attack)
         
 player = {
     "health": 100,
@@ -431,7 +477,7 @@ player = {
     ],
     "rect": pygame.Rect(center_x - pic.get_width() / 2, center_y - pic.get_height() / 2, pic.get_width(), pic.get_height()),
     "money": 100,
-    "speed": 5,
+    "speed": 10,
     "current_fruit": None,
     "x": center_x - pic.get_width() / 2,
     "y": center_y - pic.get_height() / 2
@@ -808,9 +854,9 @@ lvls = [
 hps = [
     100,
     300,
-    594,
-    2200,
-    5000,
+    994,
+    2750,
+    7000,
     20000
 ]
     
@@ -1118,8 +1164,8 @@ island_fruits = [
             "special": transform_z,
             "special_name": "Shift",
             "special_image": pygame.image.load("fruits/attacks/buddha.png"),
-            "specialtwo": rubber_z,
-            "special_nametwo": "Divine Statue",
+            "specialtwo": super_z,
+            "special_nametwo": "Light Meteors",
             "range": 1,
             "cool": 6
         },
@@ -1222,12 +1268,12 @@ island_fruits = [
             "bought": False,
             "rect": pygame.Rect(center_x - 100, center_y + 100, 155, 155),
             "img_rect": pygame.Rect(center_x - 100, center_y + 100, 70, 70),
-            "left_atk": pygame.image.load("fruits/attacks/bomb.png"),
+            "left_atk": pygame.transform.flip(pygame.image.load("fruits/attacks/bomb.png"), True, False),
             "right_atk": pygame.image.load("fruits/attacks/bomb.png"),
             "up_atk": pygame.image.load("fruits/attacks/bomb.png"),
             "down_atk": pygame.image.load("fruits/attacks/bomb.png"),
             "type": "BOMB",
-            "damage": 500,
+            "damage": 200,
             "normal": rubber_z,
             "special": rubber_z,
             "special_name": "Bomb Throw",
@@ -1871,7 +1917,7 @@ while running:
                start_atk = pygame.time.get_ticks()
                attack_rect = None
     elif mode != "atk":
-        player["speed"] = 5
+        player["speed"] = 10
     for island in islands:
         for boat in boats:
             if page == "home":
