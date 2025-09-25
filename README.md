@@ -33,7 +33,7 @@ Cooming soon :
 1.RAID BOSS 
 
 
-2.Fighting Styles(Sanguine Art, Divine Art, Electric)
+2.BOMB event
 
 
 
