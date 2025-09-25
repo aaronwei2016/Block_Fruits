@@ -198,10 +198,7 @@ def rubber_z():
                         "stamina": 1
                     }
                 special_atks.append(special_atk)
-        
-def super_z():
-    if player["current_fruit"]:
-        pass
+   
 
 
 def ultra_z():
@@ -372,8 +369,36 @@ def ultra_z():
     
 
 
-
-
+def super_z():
+    if player["current_fruit"]:
+        if direction == "left":
+            new_attack = {
+                "x": center_x - player["image"].get_width() / 2 - 40,
+                "y": 0,
+                "direction": "down",
+                "stamina": 2,
+                "image": player["current_fruit"]["down_atk"],
+                "rect": pygame.Rect(center_x - player["image"].get_width() - 40, 0, 90, 90)
+            }
+            special_atks.append(new_attack)
+            new_attack = {
+                "x": center_x - player["image"].get_width() / 2 - 140,
+                "y": 0,
+                "direction": "down",
+                "stamina": 2,
+                "image": player["current_fruit"]["down_atk"],
+                "rect": pygame.Rect(center_x - player["image"].get_width() - 140, 0, 90, 90)
+            }
+            special_atks.append(new_attack)
+            new_attack = {
+                "x": center_x - player["image"].get_width() / 2 - 240,
+                "y": 0,
+                "direction": "down",
+                "stamina": 2,
+                "image": player["current_fruit"]["down_atk"],
+                "rect": pygame.Rect(center_x - player["image"].get_width() - 240, 0, 90, 90)
+            }
+            special_atks.append(new_attack)
         
 player = {
     "health": 100,
@@ -1003,7 +1028,7 @@ island_fruits = [
             "special": rubber_z,
             "special_name": "Nuke Fist",
             "range": 1,
-            "specialtwo": ultra_z,
+            "specialtwo": super_z,
             "special_nametwo": "Missile Barrage",
             "cool": 2
         },
@@ -1293,6 +1318,11 @@ def roll():
     add(new_fruit["type"])
     save()
     
+
+
+
+
+
 
 
 for i in range(6):
