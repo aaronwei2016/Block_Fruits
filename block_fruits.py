@@ -477,7 +477,7 @@ player = {
     ],
     "rect": pygame.Rect(center_x - pic.get_width() / 2, center_y - pic.get_height() / 2, pic.get_width(), pic.get_height()),
     "money": 100,
-    "speed": 10,
+    "speed": 6,
     "current_fruit": None,
     "x": center_x - pic.get_width() / 2,
     "y": center_y - pic.get_height() / 2
@@ -1251,6 +1251,7 @@ island_fruits = [
             "right_atk": pygame.image.load("fruits/attacks/Lightning.png"),
             "up_atk": pygame.image.load("fruits/attacks/Lightning.png"),
             "down_atk": pygame.image.load("fruits/attacks/Lightning.png"),
+            "rect2": pygame.Rect(center_x - 170, center_y, 130, 130),
             "type": "THUNDER",
             "damage": 710,
             "special": rubber_z,
@@ -1272,6 +1273,7 @@ island_fruits = [
             "right_atk": pygame.image.load("fruits/attacks/bomb.png"),
             "up_atk": pygame.image.load("fruits/attacks/bomb.png"),
             "down_atk": pygame.image.load("fruits/attacks/bomb.png"),
+            "rect2": pygame.Rect(660, center_y, 130, 130),
             "type": "BOMB",
             "damage": 200,
             "normal": rubber_z,
@@ -1280,7 +1282,7 @@ island_fruits = [
             "specialtwo": chase_z,
             "special_nametwo": "Targeted Bomb",
             "range": 10,
-            "cool": 10
+            "cool": 14
         }
     ],
 ##Celestal domain Fruits
@@ -1315,7 +1317,6 @@ island_fruits = [
             "bought": False,
             "rect": pygame.Rect(center_x - 100, center_y + 100, 155, 155),
             "img_rect": pygame.Rect(center_x - 100, center_y + 100, 70, 70),
-            "rect2": pygame.Rect(660, center_y, 130, 130),
             "left_atk": wispy,
             "right_atk": wispy,
             "up_atk": wispy,
@@ -1335,7 +1336,7 @@ island_fruits = [
 
 def shop():
     pygame.draw.rect(screen, (255, 0, 0), (center_x - 250, center_y - 200, 600, 500))
-    fruits = island_fruits[-1]
+    fruits = island_fruits[-2]
     y = center_x - 170
     for fruit in fruits:
         screen.blit(fruit["image"], (y, center_y))
@@ -1580,7 +1581,7 @@ while running:
                         chatting = False
                         already_fruit = False
                 if page == "shop":
-                    for fruit in island_fruits[-1]:
+                    for fruit in island_fruits[-2]:
                         if page == "shop" and not clicky:
                             if fruit["rect2"].collidepoint(pos):
                                 if blox_coins >= 0:
@@ -1750,6 +1751,15 @@ while running:
                     if enemy.rect.colliderect(atk["rect"]):
                         atk["stamina"] -= 1
                         save()
+                        if player["current_fruit"]["type"] == "BOMB":
+                            if atk["direction"] == "left":
+                                enemy.rect.x -= 190
+                            elif atk["direction"] == "right":
+                                enemy.rect.x += 190
+                            elif atk["direction"] == "up":
+                                enemy.rect.y -= 190
+                            elif atk["direction"] == "down":
+                                enemy.rect.y += 190
                         enemy.health -= player["current_fruit"]["damage"] + 11
                         if atk in special_atks:
                             if atk["stamina"] <= 0:
