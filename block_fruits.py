@@ -1001,12 +1001,11 @@ updates = [
     {
         "image": pain,
         "y_pos": 60,
-        "name": "THUNDER Update",
+        "name": "BOMB event",
         "log": [
-            "Thunder",
-            "Removed M1 Attacks",
-            "Blox Fruit Gacha",
-            "RIP Commander Moveset"
+            "Bomb Fruit",
+            "Bomb Rain",
+            "Cooming Soon..."
         ]
     }
 ]
@@ -1503,6 +1502,8 @@ driving_boat = False
 cool_down = 0
 cool_down2 = 0
 load()
+raining = False
+bombs = []
 while running:
     now = pygame.time.get_ticks()
     elapsed = now - start_time
@@ -1633,20 +1634,35 @@ while running:
     clock.tick(60)
     screen.fill((0, 105, 148))
     key = pygame.key.get_pressed()
-    if elapsed // 1000 >= 200:
-        add_message("A Shiver Runs Down Your Spine", (255, 0, 0), messages[-1]["y_pos"] + 30)
+    if elapsed // 1000 >= 5:
+        
+        if not raining:
+            raining = True
+            add_message("The Bombs Pour...", (255, 0, 0), messages[-1]["y_pos"] + 30)
+        elif raining:
+            raining = False
+            add_message("The Bombing Ends...", (255, 0, 0), messages[-1]["y_pos"] + 30)
+        thing = pygame.image.load("fruits/attacks/bomb.png")
         for island in islands:
-            if island.name == "Celestal Domain":
-                for enemy in island.enemies:
-                    if enemy.name == "RIP Commander":
-                        enemy.range += width * 4
+            rects = [
+                pygame.Rect(island.rect.x, island.rect.y - 400, thing.get_width(), thing.get_height()),
+                pygame.Rect(island.rect.x + 200, island.rect.y - 400, thing.get_width(), thing.get_height()),
+                pygame.Rect(island.rect.x + 400, island.rect.y - 400, thing.get_width(), thing.get_height()),
+                pygame.Rect(island.rect.x + 600, island.rect.y - 400, thing.get_width(), thing.get_height()),
+                pygame.Rect(island.rect.x + 800, island.rect.y - 400, thing.get_width(), thing.get_height()),
+                pygame.Rect(island.rect.x + 1000, island.rect.y - 400, thing.get_width(), thing.get_height()),
+                pygame.Rect(island.rect.x + 1200, island.rect.y - 400, thing.get_width(), thing.get_height()),
+                pygame.Rect(island.rect.x + 1400, island.rect.y - 400, thing.get_width(), 0)
+            ]
+            bomb = {
+                "image": thing,
+                "rect": pygame.Rect(island.rect.x + random.randint(0, width * 2), 0, thing.get_width(), thing.get_height())
+            }
+            bombs.append(bomb)
         start_time = pygame.time.get_ticks()
-    else:
-        for island in islands:
-            if island.name == "Celestal Domain":
-                for enemy in island.enemies:
-                    if enemy.name == "RIP Commander":
-                        enemy.range = 209
+    if not raining:
+        bombs.clear()
+                
     for island in islands:
         if island.rect.colliderect(player["rect"]):
             current_island = island
@@ -1834,7 +1850,15 @@ while running:
         direction_aim = direction
         if player["current_fruit"]:
             fruit = player["current_fruit"]
-
+    if raining:
+        for bomb in bombs:
+            screen.blit(bomb["image"], (bomb["rect"].x, bomb["rect"].y))
+            bomb["rect"].y += 5
+            if bomb["rect"].colliderect(player["rect"]):
+                player["health"] -= 40
+                hit = True
+                if bomb in bombs:
+                    bombs.remove(bomb)
     if page == "abilitys":
         things = [
             "Upgrade your Fruits damage?",
@@ -1850,6 +1874,7 @@ while running:
         screen.blit(pygame.font.Font(None, 40).render("Yes", True, (255, 255, 255)), (width - 270, center_y + 10))
         pygame.draw.rect(screen, (120, 120, 120), (width - 290, center_y + 100, 140, 50), border_radius=0)
         screen.blit(pygame.font.Font(None, 40).render("No", True, (255, 255, 255)), (width - 270, center_y + 110))
+    
     if page == "rolling":
         things = [
             "Hello, Im Zioles.",
@@ -1866,7 +1891,7 @@ while running:
         screen.blit(pygame.font.Font(None, 40).render("Yes", True, (255, 255, 255)), (width - 270, center_y + 10))
         pygame.draw.rect(screen, (120, 120, 120), (width - 290, center_y + 100, 140, 50), border_radius=0)
         screen.blit(pygame.font.Font(None, 40).render("No", True, (255, 255, 255)), (width - 270, center_y + 110))
-
+    
     
     if mode == "atk":
         pygame.draw.rect(screen, (100, 100, 100), (width - 200, height - 300, 200, 300), border_radius=9)
@@ -1931,7 +1956,9 @@ while running:
     for island in islands:
         for boat in boats:
             if page == "home":
-                
+                if key[pygame.K_o]:
+                    for bomb in bombs:
+                        print(f"Pos : {bomb['rect'].x}, {bomb['rect'].y}")
                 if key[pygame.K_w]:
                     future_y = player["rect"].copy()
                     future_y.y -= 5
@@ -1984,6 +2011,15 @@ while running:
                         atk["rect"].x += player["speed"] / 6
                     if key[pygame.K_d]:
                         atk["rect"].x -= player["speed"] / 6
+                for bomb in bombs[:]:
+                    if key[pygame.K_w]:
+                        bomb["rect"].y += player["speed"] / 6
+                    if key[pygame.K_s]:
+                        bomb["rect"].y -= player["speed"] / 6
+                    if key[pygame.K_a]:
+                        bomb["rect"].x += player["speed"] / 6
+                    if key[pygame.K_d]:
+                        bomb["rect"].x -= player["speed"] / 6
 
 
     if key[pygame.K_p]:
