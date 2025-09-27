@@ -366,89 +366,93 @@ def ultra_z():
                 "stamina": 1
             }
             special_atks.append(special_atk)
-    
+
+
+
+
+        
+
+
 
 
 def super_z():
     if player["current_fruit"]:
-        if direction == "left":
-            new_attack = {
-                "x": center_x - player["image"].get_width() / 2 - 40,
-                "y": 0,
-                "direction": "down",
-                "stamina": 2,
-                "image": player["current_fruit"]["down_atk"],
-                "rect": pygame.Rect(center_x - player["image"].get_width() - 40, 0, 90, 90)
-            }
-            special_atks.append(new_attack)
-            new_attack = {
-                "x": center_x - player["image"].get_width() / 2 - 140,
-                "y": 0,
-                "direction": "down",
-                "stamina": 2,
-                "image": player["current_fruit"]["down_atk"],
-                "rect": pygame.Rect(center_x - player["image"].get_width() - 140, 0, 90, 90)
-            }
-            special_atks.append(new_attack)
-            new_attack = {
-                "x": center_x - player["image"].get_width() / 2 - 240,
-                "y": 0,
-                "direction": "down",
-                "stamina": 2,
-                "image": player["current_fruit"]["down_atk"],
-                "rect": pygame.Rect(center_x - player["image"].get_width() - 240, 0, 90, 90)
-            }
-            special_atks.append(new_attack)
-            new_attack = {
-                "x": center_x - player["image"].get_width() / 2 - 340,
-                "y": 0,
-                "direction": "down",
-                "stamina": 2,
-                "image": player["current_fruit"]["down_atk"],
-                "rect": pygame.Rect(center_x - player["image"].get_width() - 340, 0, 90, 90)
-            }
-            special_atks.append(new_attack)
-        elif direction == "right":
-            new_attack = {
-                "x": center_x - player["image"].get_width() / 2 + 280,
-                "y": 0,
-                "direction": "down",
-                "stamina": 2,
-                "image": player["current_fruit"]["down_atk"],
-                "rect": pygame.Rect(center_x - player["image"].get_width() + 280, 0, 90, 90)
-            }
-            special_atks.append(new_attack)
-            new_attack = {
-                "x": center_x - player["image"].get_width() / 2 + 380,
-                "y": 0,
-                "direction": "down",
-                "stamina": 2,
-                "image": player["current_fruit"]["down_atk"],
-                "rect": pygame.Rect(center_x - player["image"].get_width() + 380, 0, 90, 90)
-            }
-            special_atks.append(new_attack)
-            new_attack = {
-                "x": center_x - player["image"].get_width() / 2 + 480,
-                "y": 0,
-                "direction": "down",
-                "stamina": 2,
-                "image": player["current_fruit"]["down_atk"],
-                "rect": pygame.Rect(center_x - player["image"].get_width() + 480, 0, 90, 90)
-            }
-            special_atks.append(new_attack)
-            new_attack = {
-                "x": center_x - player["image"].get_width() / 2 + 580,
-                "y": 0,
-                "direction": "down",
-                "stamina": 2,
-                "image": player["current_fruit"]["down_atk"],
-                "rect": pygame.Rect(center_x - player["image"].get_width() + 580, 0, 90, 90)
-            }
-            special_atks.append(new_attack)
+        new_attack = {
+            "x": center_x - player["image"].get_width() / 2 - 40,
+            "y": 0,
+            "direction": "down",
+            "stamina": 2,
+            "image": player["current_fruit"]["down_atk"],
+            "rect": pygame.Rect(center_x - player["image"].get_width() - 40, 0, 90, 90)
+        }
+        special_atks.append(new_attack)
+        new_attack = {
+            "x": center_x - player["image"].get_width() / 2 - 140,
+            "y": 0,
+            "direction": "down",
+            "stamina": 2,
+            "image": player["current_fruit"]["down_atk"],
+            "rect": pygame.Rect(center_x - player["image"].get_width() - 140, 0, 90, 90)
+        }
+        special_atks.append(new_attack)
+        new_attack = {
+            "x": center_x - player["image"].get_width() / 2 - 240,
+            "y": 0,
+            "direction": "down",
+            "stamina": 2,
+            "image": player["current_fruit"]["down_atk"],
+            "rect": pygame.Rect(center_x - player["image"].get_width() - 240, 0, 90, 90)
+        }
+        special_atks.append(new_attack)
+        new_attack = {
+            "x": center_x - player["image"].get_width() / 2 - 340,
+            "y": 0,
+            "direction": "down",
+            "stamina": 2,
+            "image": player["current_fruit"]["down_atk"],
+            "rect": pygame.Rect(center_x - player["image"].get_width() - 340, 0, 90, 90)
+        }
+        special_atks.append(new_attack)
+        new_attack = {
+            "x": center_x - player["image"].get_width() / 2 + 280,
+            "y": 0,
+            "direction": "down",
+            "stamina": 2,
+            "image": player["current_fruit"]["down_atk"],
+            "rect": pygame.Rect(center_x - player["image"].get_width() + 280, 0, 90, 90)
+        }
+        special_atks.append(new_attack)
+        new_attack = {
+            "x": center_x - player["image"].get_width() / 2 + 380,
+            "y": 0,
+            "direction": "down",
+            "stamina": 2,
+            "image": player["current_fruit"]["down_atk"],
+            "rect": pygame.Rect(center_x - player["image"].get_width() + 380, 0, 90, 90)
+        }
+        special_atks.append(new_attack)
+        new_attack = {
+            "x": center_x - player["image"].get_width() / 2 + 480,
+            "y": 0,
+            "direction": "down",
+            "stamina": 2,
+            "image": player["current_fruit"]["down_atk"],
+            "rect": pygame.Rect(center_x - player["image"].get_width() + 480, 0, 90, 90)
+        }
+        special_atks.append(new_attack)
+        new_attack = {
+            "x": center_x - player["image"].get_width() / 2 + 580,
+            "y": 0,
+            "direction": "down",
+            "stamina": 2,
+            "image": player["current_fruit"]["down_atk"],
+            "rect": pygame.Rect(center_x - player["image"].get_width() + 580, 0, 90, 90)
+        }
+        special_atks.append(new_attack)
         
 player = {
     "health": 100,
-    "image": pic,
+    "image": pic.copy(),
     "bounty": 0,
     "lvl": 1,
     "stats_now": 0,
@@ -1013,8 +1017,8 @@ def transform_z():
     global transformed, pic
     if player["current_fruit"]["type"] == "BUDDHA":
        if not transformed:
-           pic = pygame.transform.scale(pic, (pic.get_width() * 2, pic.get_height() * 2))
-           player["image"] = pic
+    
+           player["image"] = pygame.transform.scale(player["image"], (player["image"].get_width() * 2, player["image"].get_height() * 2))
            player["block_fruits"][0]["damage"] = 400
            transformed = True
        else:
@@ -1053,6 +1057,9 @@ def show_updates():
             label = super_small.render(log, True, (255, 255, 0))
             screen.blit(label, (300, y22))
             y22 += 40
+def all_z():
+    ultra_z()
+    super_z()
 island_fruits = [
 ##First Island Block Fruits
     [
@@ -1239,24 +1246,24 @@ island_fruits = [
 ##Fifth island fruits
     [
         {
-            "image": pygame.image.load("fruits/shopping/Lightning_Fruit.png"),
+            "image": pygame.image.load("fruits/shopping/party_bomb.png"),
             "buying_img": pygame.image.load("fruits/buying/kitsunefruit.png"),
-            "Name": "Thunder Fruit",
+            "Name": "Party Bomb Fruit",
             "cost": 0,
             "bought": False,
             "rect": pygame.Rect(center_x - 100, center_y - 300, 155, 155),
             "img_rect": pygame.Rect(center_x - 100, center_y - 300, 70, 70),
-            "left_atk": pygame.image.load("fruits/attacks/Lightning.png"),
-            "right_atk": pygame.image.load("fruits/attacks/Lightning.png"),
-            "up_atk": pygame.image.load("fruits/attacks/Lightning.png"),
-            "down_atk": pygame.image.load("fruits/attacks/Lightning.png"),
+            "left_atk": pygame.transform.flip(pygame.image.load("fruits/attacks/bomb.png"), True, False),
+            "right_atk": pygame.image.load("fruits/attacks/bomb.png"),
+            "up_atk": pygame.image.load("fruits/attacks/bomb.png"),
+            "down_atk": pygame.image.load("fruits/attacks/bomb.png"),
             "rect2": pygame.Rect(center_x - 170, center_y, 130, 130),
-            "type": "THUNDER",
-            "damage": 710,
-            "special": rubber_z,
-            "special_name": "Sky Wraith",
-            "specialtwo": ultra_z,
-            "special_nametwo": "Thunder Storm",
+            "type": "PARTY",
+            "damage": 600,
+            "special": super_z,
+            "special_name": "Disco Bombs",
+            "specialtwo": ultra_z(),
+            "special_nametwo": "Party Bombs",
             "range": 2,
             "cool": 6
         },
@@ -1634,7 +1641,7 @@ while running:
     clock.tick(60)
     screen.fill((0, 105, 148))
     key = pygame.key.get_pressed()
-    if elapsed // 1000 >= 5:
+    if elapsed // 1000 >= 60:
         
         if not raining:
             raining = True
@@ -1643,22 +1650,13 @@ while running:
             raining = False
             add_message("The Bombing Ends...", (255, 0, 0), messages[-1]["y_pos"] + 30)
         thing = pygame.image.load("fruits/attacks/bomb.png")
-        for island in islands:
-            rects = [
-                pygame.Rect(island.rect.x, island.rect.y - 400, thing.get_width(), thing.get_height()),
-                pygame.Rect(island.rect.x + 200, island.rect.y - 400, thing.get_width(), thing.get_height()),
-                pygame.Rect(island.rect.x + 400, island.rect.y - 400, thing.get_width(), thing.get_height()),
-                pygame.Rect(island.rect.x + 600, island.rect.y - 400, thing.get_width(), thing.get_height()),
-                pygame.Rect(island.rect.x + 800, island.rect.y - 400, thing.get_width(), thing.get_height()),
-                pygame.Rect(island.rect.x + 1000, island.rect.y - 400, thing.get_width(), thing.get_height()),
-                pygame.Rect(island.rect.x + 1200, island.rect.y - 400, thing.get_width(), thing.get_height()),
-                pygame.Rect(island.rect.x + 1400, island.rect.y - 400, thing.get_width(), 0)
-            ]
-            bomb = {
-                "image": thing,
-                "rect": pygame.Rect(island.rect.x + random.randint(0, width * 2), 0, thing.get_width(), thing.get_height())
-            }
-            bombs.append(bomb)
+        for _ in range(5):
+            for island in islands:
+                bomb = {
+                    "image": thing,
+                    "rect": pygame.Rect(island.rect.x + random.randint(0, width), island.rect.x - 400, thing.get_width(), thing.get_height())
+                }
+                bombs.append(bomb)
         start_time = pygame.time.get_ticks()
     if not raining:
         bombs.clear()
@@ -1722,7 +1720,8 @@ while running:
     pygame.draw.rect(screen, (0, 255, 0), (60, height - 80, player["health"] * 4, 59))
     if len(special_atks) > 0:
         for atk in special_atks[:]:
-            screen.blit(atk["image"], atk["rect"])
+            if atk["image"] is not None:
+                screen.blit(atk["image"], atk["rect"])
             for island in islands:
                 for enemy in island.enemies:
                     if enemy.rect.colliderect(atk["rect"]):
@@ -1855,10 +1854,14 @@ while running:
             screen.blit(bomb["image"], (bomb["rect"].x, bomb["rect"].y))
             bomb["rect"].y += 5
             if bomb["rect"].colliderect(player["rect"]):
-                player["health"] -= 40
+                player["health"] -= player["health"] // 4
                 hit = True
-                if bomb in bombs:
-                    bombs.remove(bomb)
+            for island in islands:
+                for enemy in island.enemies:
+                    if bomb["rect"].colliderect(enemy.rect):
+                        enemy.health -= enemy.health // 4
+                        if bomb in bombs:
+                            bombs.remove(bomb)
     if page == "abilitys":
         things = [
             "Upgrade your Fruits damage?",
