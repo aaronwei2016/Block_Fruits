@@ -1,6 +1,5 @@
 # Block Fruits
 Buddha is reworked!
-The RIP Commander Seeks For Revenge
 
 Bugs :
 
