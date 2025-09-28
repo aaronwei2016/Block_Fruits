@@ -448,8 +448,10 @@ def super_z():
             "image": player["current_fruit"]["down_atk"],
             "rect": pygame.Rect(center_x - player["image"].get_width() + 580, 0, 90, 90)
         }
+
         special_atks.append(new_attack)
-        
+def bombing():
+    super_z()
 player = {
     "health": 100,
     "image": pic.copy(),
@@ -1246,9 +1248,9 @@ island_fruits = [
 ##Fifth island fruits
     [
         {
-            "image": pygame.image.load("fruits/shopping/party_bomb.png"),
+            "image": pygame.transform.scale(pygame.image.load("fruits/shopping/party_bomb.png"), (180, 180)),
             "buying_img": pygame.image.load("fruits/buying/kitsunefruit.png"),
-            "Name": "Party Bomb Fruit",
+            "Name": "PARTY",
             "cost": 0,
             "bought": False,
             "rect": pygame.Rect(center_x - 100, center_y - 300, 155, 155),
@@ -1260,10 +1262,10 @@ island_fruits = [
             "rect2": pygame.Rect(center_x - 170, center_y, 130, 130),
             "type": "PARTY",
             "damage": 600,
-            "special": super_z,
-            "special_name": "Disco Bombs",
-            "specialtwo": ultra_z(),
-            "special_nametwo": "Party Bombs",
+            "special": rubber_z,
+            "special_name": "Disco Bomb",
+            "specialtwo": bombing,
+            "special_nametwo": "Bombly Downfall",
             "range": 2,
             "cool": 6
         },
@@ -2039,6 +2041,7 @@ while running:
         if player["current_fruit"]["specialtwo"] and cool_down2 <= 0:
             if player["current_fruit"]["special_nametwo"] != "":
                 player["current_fruit"]["specialtwo"]()
+                print("attack!")
             clicked = True
             cool_down2 = 100
     elif key[pygame.K_c] and not clicked:
