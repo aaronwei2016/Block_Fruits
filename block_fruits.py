@@ -891,7 +891,8 @@ names = [
     "Monkey",
     "Yeti",
     "Swan",
-    "Hells Guard"
+    "Hell's Guard",
+    "RIP Commander"
 ]
 index = 0
 
@@ -1255,10 +1256,10 @@ island_fruits = [
             "bought": False,
             "rect": pygame.Rect(center_x - 100, center_y - 300, 155, 155),
             "img_rect": pygame.Rect(center_x - 100, center_y - 300, 70, 70),
-            "left_atk": pygame.transform.flip(pygame.image.load("fruits/attacks/bomb.png"), True, False),
-            "right_atk": pygame.image.load("fruits/attacks/bomb.png"),
-            "up_atk": pygame.image.load("fruits/attacks/bomb.png"),
-            "down_atk": pygame.image.load("fruits/attacks/bomb.png"),
+            "left_atk": pygame.transform.flip(pygame.image.load("fruits/attacks/bomb_party.png"), True, False),
+            "right_atk": pygame.image.load("fruits/attacks/bomb_party.png"),
+            "up_atk": pygame.image.load("fruits/attacks/bomb_party.png"),
+            "down_atk": pygame.image.load("fruits/attacks/bomb_party.png"),
             "rect2": pygame.Rect(center_x - 170, center_y, 130, 130),
             "type": "PARTY",
             "damage": 600,
@@ -1924,7 +1925,7 @@ while running:
            clicked = True
            if atk_elapsed <= 100:
 
-               if player["current_fruit"]["type"] != "BOMB" and player["current_fruit"]["type"] != "BUDDHA" and player["current_fruit"]["type"] != "THUNDER" and player["current_fruit"]["type"] != "MAGMA" and player["current_fruit"]["type"] != "PAIN V2" and player["current_fruit"]["type"] != "PAIN":
+               if player["current_fruit"]["type"] != "BOMB" and player["current_fruit"]["type"] != "PARTY" and player["current_fruit"]["type"] != "BUDDHA" and player["current_fruit"]["type"] != "THUNDER" and player["current_fruit"]["type"] != "MAGMA" and player["current_fruit"]["type"] != "PAIN V2" and player["current_fruit"]["type"] != "PAIN":
                    if direction_aim == "up":
                        if player["current_fruit"]["up_atk"] is not None:
                            attack_rect = pygame.Rect(center_x - pic.get_width() / 2, center_y - pic.get_height() / 2 - 40, 90, 90)
@@ -1961,9 +1962,6 @@ while running:
     for island in islands:
         for boat in boats:
             if page == "home":
-                if key[pygame.K_o]:
-                    for bomb in bombs:
-                        print(f"Pos : {bomb['rect'].x}, {bomb['rect'].y}")
                 if key[pygame.K_w]:
                     future_y = player["rect"].copy()
                     future_y.y -= 5
@@ -2041,7 +2039,6 @@ while running:
         if player["current_fruit"]["specialtwo"] and cool_down2 <= 0:
             if player["current_fruit"]["special_nametwo"] != "":
                 player["current_fruit"]["specialtwo"]()
-                print("attack!")
             clicked = True
             cool_down2 = 100
     elif key[pygame.K_c] and not clicked:
