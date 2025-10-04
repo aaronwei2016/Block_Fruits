@@ -2,9 +2,7 @@
 Buddha is reworked!
 
 Bugs :
-
-1.Fruit [Enter] attacks not doing damage
-2.Clicking not working
+None
 
 
 
@@ -12,8 +10,6 @@ Bugs :
 
 
 
-
-<img width="300" height="168" alt="thunderupdate" src="https://github.com/user-attachments/assets/e2b4365f-0967-47d5-bcfc-4b5100adb6e7" />
 
 
 
@@ -29,10 +25,10 @@ If game is glitching:
 
 Cooming soon :
 
-1.RAID BOSS 
+1.Tryant of the seas
 
 
-2.BOMB event
+2.Flame Rework
 
 
 
@@ -66,3 +62,14 @@ ______________________________________________________
 Bomb is released! It has the fastest cooldown in the game!
 
 but it does not have an ENTER attack.
+
+Whats New:
+
+1.Quake Fruit
+2.Heaven
+3.Special code to get Dark Blade
+
+
+Whats Next :
+
+cooming sooon...
