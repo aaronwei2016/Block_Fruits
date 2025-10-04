@@ -12,7 +12,7 @@ height = 800
 center_x = width / 2
 center_y = height / 2
 screen = pygame.display.set_mode((width, height))
-pygame.display.set_caption("BLOCK FRUITS")
+pygame.display.set_caption("Block Fruits")
 enemies = pygame.sprite.Group()
 pi = pygame.image.load("player.png")
 x, y = pi.get_size()
