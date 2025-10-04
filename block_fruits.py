@@ -1633,8 +1633,11 @@ while running:
                         player["current_fruit"] = player["block_fruits"][7]
 
                 if event.key == pygame.K_o:
-                    buy(swords[0])
-                    add(swords[0]["type"])
+                    if player["lvl"] >= 130:
+                        player["block_fruits"].append(swords[0])
+                        add(swords[0]["type"])
+                        player["money"] -= 100000
+                        add_message("You gained DARK BLADE!", (0, 0, 255), messages[-1]["y_pos"] + 30)
         elif event.type == pygame.MOUSEBUTTONDOWN:
             pos = pygame.mouse.get_pos()
             
