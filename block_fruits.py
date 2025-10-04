@@ -46,7 +46,8 @@ def show_controls():
         "Move:W/A/S/D",
         "Controls Page:C",
         "P:Updates",
-        "i:Shop"
+        "i:Shop",
+        "O:???"
     ]
     y = 150
     for control in controls:
@@ -510,6 +511,7 @@ swords = [
         "left_atk": wsws,
         "right_atk": pygame.transform.flip(wsws, True, False),
         "up_atk": wsws,
+        "buying_img": None,
         "image": wsws,
         "cool": 4,
         "range": 1,
@@ -518,7 +520,30 @@ swords = [
         "down_atk": pygame.image.load("fruits/attacks/Dark_Blade.png")
     }
 ]
-    
+
+
+def buy_sword(fruit):
+    if player["money"] >= sword["cost"]:
+        new_fruit = {
+                "image": fruit["buying_img"],
+                "rect": fruit["img_rect"],
+                "left_atk": fruit["left_atk"],
+                "right_atk": fruit["right_atk"],
+                "up_atk": fruit["up_atk"],
+                "down_atk": fruit["down_atk"],
+                "type": fruit["type"],
+                "damage": fruit["damage"],
+                "special": fruit["special"],
+                "special_name": fruit["special_name"],
+                "range": fruit["range"],
+                "special_nametwo": fruit["special_nametwo"],
+                "specialtwo": fruit["specialtwo"],
+                "cool": fruit["cool"],
+                "mas": 1,
+                "awakend": False
+        }
+        player["block_fruits"].append(new_fruit)
+            
 player = {
     "health": 100,
     "image": pic.copy(),
@@ -764,6 +789,7 @@ colors = [
     (173, 216, 230),
     (79, 195, 247),
     (255, 36, 0),
+    (255, 247, 179),
     (186, 85, 211)
 ]
 
@@ -910,6 +936,7 @@ island_positions = [
     pygame.Rect(-2400, -2300, 10, 10),
     pygame.Rect(-4300, -2300, 10, 10),
     pygame.Rect(-4300, -4300, 10, 10),
+    pygame.Rect(-4300, -5900, 10, 10),
     pygame.Rect(-2900, 10, 10, 10)
 ]
 
@@ -921,6 +948,7 @@ lvls = [
     25,
     50,
     200,
+    300,
     999
 ]
 
@@ -931,6 +959,7 @@ hps = [
     994,
     2750,
     7000,
+    10000,
     20000
 ]
     
@@ -942,6 +971,7 @@ enemys = [
     "yeti.png",
     "swan.png",
     "hell_guard.png",
+    "angel.png",
     "RIP.png",
 ]
 
@@ -951,6 +981,7 @@ rewards = [
     200,
     400,
     1200,
+    2000,
     2000
 ]
 
@@ -960,6 +991,7 @@ names = [
     "Yeti",
     "Swan",
     "Hell's Guard",
+    "Heaven's Guard",
     "RIP Commander"
 ]
 index = 0
@@ -970,6 +1002,7 @@ givens = [
     340,
     694,
     1000,
+    3000,
     12000
 ]
 
@@ -980,6 +1013,7 @@ names2 = [
     "Frozen Island",
     "Kitsune Island",
     "Hells Palace",
+    "Heaven",
     "Celestal Domain"
 ]
 
@@ -989,6 +1023,7 @@ names = [
     "Yeti",
     "Swan",
     "Hell's Guard",
+    "Heaven's Guard",
     "RIP Commander"
 ]
 
@@ -1027,6 +1062,13 @@ quests = [
         "number": 10,
         "money": 7500,
         "xp": 4500,
+        "now": 0
+    },
+    {
+        "name": "Heaven Guards",
+        "number": 30,
+        "money": 20000,
+        "xp": 15000,
         "now": 0
     },
     {
@@ -1113,6 +1155,20 @@ def chase_z():
                 "stamina": 1
             }
             special_atks.append(special_atk)
+
+
+def semi_z():
+    if player["current_fruit"]:
+        fruit = player["current_fruit"]
+        if fruit["type"] == "QUAKE":
+            new_atk = {
+                "image": pygame.image.load("fruits/attacks/sea.png"),
+                "direction": "down",
+                "stamina": 100000000000000000000000000,
+                "rect": pygame.Rect(-100, center_y - 280, pygame.image.load("fruits/attacks/sea.png").get_width(), pygame.image.load("fruits/attacks/sea.png").get_height()),
+            }
+            special_atks.append(new_atk)
+
 
 
 def show_updates():
@@ -1218,7 +1274,7 @@ island_fruits = [
             "specialtwo": ultra_z,
             "special_nametwo": "Volcano Erupt",
             "range": 1,
-            "cool": 1
+            "cool": 2
         }
     ],
 ##Third Island Block fruits
@@ -1284,13 +1340,14 @@ island_fruits = [
             "up_atk": pygame.image.load("fruits/attacks/kitsuneleft.png"),
             "down_atk": pygame.image.load("fruits/attacks/kitsunedown.png"),
             "type": "QUAKE",
+            "rect2": pygame.Rect(center_x - 170, center_y, 130, 130),
             "damage": 520,
             "special": rubber_z,
             "special_name": "Quake Punch",
-            "specialtwo": super_z,
-            "special_nametwo": "Quake Barrage",
+            "specialtwo": semi_z,
+            "special_nametwo": "Seaquake",
             "range": 2,
-            "cool": 6
+            "cool": 2
         },
         {
             "image": pygame.image.load("fruits/shopping/painfruit.png"),
@@ -1316,6 +1373,54 @@ island_fruits = [
         }
     ],
 ##Fifth island fruits
+    [
+        {
+            "image": pygame.transform.scale(pygame.image.load("fruits/shopping/party_bomb.png"), (180, 180)),
+            "buying_img": pygame.image.load("fruits/buying/kitsunefruit.png"),
+            "Name": "PARTY",
+            "cost": 0,
+            "bought": False,
+            "rect": pygame.Rect(center_x - 100, center_y - 300, 155, 155),
+            "img_rect": pygame.Rect(center_x - 100, center_y - 300, 70, 70),
+            "left_atk": pygame.transform.flip(pygame.image.load("fruits/attacks/bomb_party.png"), True, False),
+            "right_atk": pygame.image.load("fruits/attacks/bomb_party.png"),
+            "up_atk": pygame.image.load("fruits/attacks/bomb_party.png"),
+            "down_atk": pygame.image.load("fruits/attacks/bomb_party.png"),
+            "rect2": pygame.Rect(center_x - 170, center_y, 130, 130),
+            "type": "PARTY",
+            "damage": 600,
+            "special": rubber_z,
+            "special_name": "Disco Bomb",
+            "specialtwo": bombing,
+            "special_nametwo": "Bombly Downfall",
+            "range": 2,
+            "cool": 6
+        },
+        {
+            "image": pygame.image.load("fruits/shopping/Bomb_Fruit.png"),
+            "buying_img": pygame.image.load("fruits/buying/kitsunefruit.png"),
+            "Name": "Bomb Fruit",
+            "cost": 0,
+            "bought": False,
+            "rect": pygame.Rect(center_x - 100, center_y + 100, 155, 155),
+            "img_rect": pygame.Rect(center_x - 100, center_y + 100, 70, 70),
+            "left_atk": pygame.transform.flip(pygame.image.load("fruits/attacks/bomb.png"), True, False),
+            "right_atk": pygame.image.load("fruits/attacks/bomb.png"),
+            "up_atk": pygame.image.load("fruits/attacks/bomb.png"),
+            "down_atk": pygame.image.load("fruits/attacks/bomb.png"),
+            "rect2": pygame.Rect(660, center_y, 130, 130),
+            "type": "BOMB",
+            "damage": 200,
+            "normal": rubber_z,
+            "special": rubber_z,
+            "special_name": "Bomb Throw",
+            "specialtwo": chase_z,
+            "special_nametwo": "Targeted Bomb",
+            "range": 10,
+            "cool": 14
+        }
+    ],
+## heaven fruits
     [
         {
             "image": pygame.transform.scale(pygame.image.load("fruits/shopping/party_bomb.png"), (180, 180)),
@@ -1414,7 +1519,7 @@ island_fruits = [
 
 def shop():
     pygame.draw.rect(screen, (255, 0, 0), (center_x - 250, center_y - 200, 600, 500))
-    fruits = island_fruits[-4]
+    fruits = island_fruits[-3]
     y = center_x - 170
     for fruit in fruits:
         screen.blit(fruit["image"], (y, center_y))
@@ -1450,7 +1555,7 @@ def roll():
 
 
 
-for i in range(6):
+for i in range(7):
     island = Island(
         went=False,
         enemy_xp=givens[i],
@@ -1633,7 +1738,7 @@ while running:
                         player["current_fruit"] = player["block_fruits"][7]
 
                 if event.key == pygame.K_o:
-                    if player["lvl"] >= 130:
+                    if player["money"] >= 100000 and player["lvl"] >= 130:
                         player["block_fruits"].append(swords[0])
                         add(swords[0]["type"])
                         player["money"] -= 100000
@@ -1668,7 +1773,7 @@ while running:
                         chatting = False
                         already_fruit = False
                 if page == "shop":
-                    for fruit in island_fruits[-4]:
+                    for fruit in island_fruits[-3]:
                         if page == "shop" and not clicky:
                             if fruit["rect2"].collidepoint(pos):
                                 if blox_coins >= 0:
