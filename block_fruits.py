@@ -23,6 +23,10 @@ items = [
     {
         "name": "COMBAT",
         "position": 90
+    },
+    {
+        "name": "DARK",
+        "position": 195
     }
 ]
 
@@ -452,6 +456,30 @@ def super_z():
         special_atks.append(new_attack)
 def bombing():
     super_z()
+
+
+wsws = pygame.image.load("fruits/attacks/bladeleft.png")
+swords = [
+    {
+        "Name": "Dark Blade",
+        "type": "DARK",
+        "damage": 500,
+        "special": rubber_z,
+        "special_name": "Violent Toss",
+        "special_nametwo": "Million Swords",
+        "specialtwo": super_z,
+        "left_atk": wsws,
+        "right_atk": pygame.transform.flip(wsws, True, False),
+        "up_atk": wsws,
+        "image": wsws,
+        "cool": 4,
+        "range": 1,
+        "awakend": False,
+        "mas": 1,
+        "down_atk": pygame.image.load("fruits/attacks/Dark_Blade.png")
+    }
+]
+    
 player = {
     "health": 100,
     "image": pic.copy(),
@@ -465,6 +493,7 @@ player = {
         {
             "left_atk": None,
             "right_atk": None,
+            "rect": pygame.Rect(0, 0, 0, 0),
             "up_atk": None,
             "down_atk": None,
             "type": "COMBAT",
@@ -479,11 +508,12 @@ player = {
             "special_image": pygame.image.load("fruits/attacks/sword.png"),
             "special_image2": pygame.transform.flip(pygame.image.load("fruits/attacks/sword.png"), True, False),
             "awakend": False
-        }
+        },
+        swords[0]
     ],
     "rect": pygame.Rect(center_x - pic.get_width() / 2, center_y - pic.get_height() / 2, pic.get_width(), pic.get_height()),
     "money": 100,
-    "speed": 6,
+    "speed": 10,
     "current_fruit": None,
     "x": center_x - pic.get_width() / 2,
     "y": center_y - pic.get_height() / 2
@@ -1020,12 +1050,11 @@ def transform_z():
     global transformed, pic
     if player["current_fruit"]["type"] == "BUDDHA":
        if not transformed:
-    
            player["image"] = pygame.transform.scale(player["image"], (player["image"].get_width() * 2, player["image"].get_height() * 2))
-           player["block_fruits"][0]["damage"] = 400
+           player["block_fruits"][0]["damage"] = 600
            transformed = True
        else:
-           pic = pygame.transform.scale(pic, (pic.get_width() / 2, pic.get_height() / 2))
+           pic = pygame.transform.scale(pic, (180, 180))
            player["image"] = pic
            transformed = False
            player["block_fruits"][0]["damage"] = 9
@@ -1091,7 +1120,7 @@ island_fruits = [
             "image": pygame.image.load("fruits/shopping/rubberfruit.png"),
             "buying_img": pygame.image.load("fruits/buying/rubberfruit.png"),
             "Name": "Rubber Fruit",
-            "cost": 2500,
+            "cost": 4500,
             "bought": False,
             "rect": pygame.Rect(center_x - 100, center_y - 100, 155, 155),
             "img_rect": pygame.Rect(center_x - 100, center_y - 100, 70, 70),
@@ -1115,7 +1144,7 @@ island_fruits = [
             "image": pygame.image.load("fruits/shopping/lightfruit.png"),
             "buying_img": pygame.image.load("fruits/buying/light.png"),
             "Name": "Light Fruit",
-            "cost": 5600,
+            "cost": 9000,
             "bought": False,
             "rect": pygame.Rect(center_x - 100, center_y - 300, 155, 155),
             "img_rect": pygame.Rect(center_x - 100, center_y - 300, 70, 70),
@@ -1136,7 +1165,7 @@ island_fruits = [
             "image": pygame.image.load("fruits/shopping/magmafruit.png"),
             "buying_img": pygame.image.load("fruits/buying/magmafruit.png"),
             "Name": "Magma Fruit",
-            "cost": 4500,
+            "cost": 8500,
             "bought": False,
             "rect": pygame.Rect(center_x - 100, center_y - 100, 155, 155),
             "img_rect": pygame.Rect(center_x - 100, center_y - 100, 70, 70),
@@ -1160,7 +1189,7 @@ island_fruits = [
             "image": pygame.image.load("fruits/shopping/buhhdafruit.png"),
             "buying_img": pygame.image.load("fruits/buying/buhhdafruit.png"),
             "Name": "Buddha Fruit",
-            "cost": 6,
+            "cost": 10000,
             "bought": False,
             "rect": pygame.Rect(center_x - 100, center_y - 300, 155, 155),
             "img_rect": pygame.Rect(center_x - 100, center_y - 300, 70, 70),
@@ -1169,6 +1198,7 @@ island_fruits = [
             "up_atk": pygame.image.load("fruits/attacks/buddha.png"),
             "down_atk": pygame.image.load("fruits/attacks/buddha.png"),
             "type": "BUDDHA",
+            "rect2": pygame.Rect(center_x - 170, center_y, 130, 130),
             "damage": 300,
             "special": transform_z,
             "special_name": "Shift",
@@ -1193,6 +1223,7 @@ island_fruits = [
             "type": "LOVE",
             "damage": 150,
             "special": rubber_z,
+            "rect2": pygame.Rect(center_x - 100, center_y + 100, 155, 155),
             "special_name": "Carming Heart",
             "specialtwo": ultra_z,
             "special_nametwo": "Heart Explosion",
@@ -1203,9 +1234,9 @@ island_fruits = [
 ##fourth island fruits
     [
         {
-            "image": pygame.image.load("fruits/shopping/kitsunefruit.png"),
+            "image": pygame.image.load("fruits/shopping/Quake_Fruit.png"),
             "buying_img": pygame.image.load("fruits/buying/kitsunefruit.png"),
-            "Name": "Kitsune Fruit",
+            "Name": "Quake Fruit",
             "cost": 12999,
             "bought": False,
             "rect": pygame.Rect(center_x - 100, center_y - 300, 155, 155),
@@ -1214,12 +1245,12 @@ island_fruits = [
             "right_atk": pygame.image.load("fruits/attacks/kitsuneright.png"),
             "up_atk": pygame.image.load("fruits/attacks/kitsuneleft.png"),
             "down_atk": pygame.image.load("fruits/attacks/kitsunedown.png"),
-            "type": "KITSUNE",
+            "type": "QUAKE",
             "damage": 520,
             "special": rubber_z,
-            "special_name": "Spirit Punch",
-            "specialtwo": ultra_z,
-            "special_nametwo": "Spirit Shrine",
+            "special_name": "Quake Punch",
+            "specialtwo": super_z,
+            "special_nametwo": "Quake Barrage",
             "range": 2,
             "cool": 6
         },
@@ -1319,38 +1350,38 @@ island_fruits = [
             "cool": 6
         },
         {
-            "image": pygame.image.load("fruits/shopping/ultrafruit.png"),
+            "image": pygame.image.load("fruits/shopping/flame_fruit.png"),
             "buying_img": pygame.image.load("fruits/buying/kitsunefruit.png"),
-            "Name": "Pain Fruit",
+            "Name": "Flame Fruit",
             "cost": 0,
             "bought": False,
             "rect": pygame.Rect(center_x - 100, center_y + 100, 155, 155),
             "img_rect": pygame.Rect(center_x - 100, center_y + 100, 70, 70),
-            "left_atk": wispy,
-            "right_atk": wispy,
-            "up_atk": wispy,
-            "down_atk": wispy,
-            "type": "PAIN V2",
+            "left_atk": pygame.image.load("fruits/attacks/dragonleft.png"),
+            "right_atk": pygame.image.load("fruits/attacks/dragonright.png"),
+            "up_atk": pygame.image.load("fruits/attacks/dragonup.png"),
+            "down_atk": pygame.transform.flip(pygame.image.load("fruits/attacks/dragonup.png"), False, True),
+            "type": "FLAME",
             "damage": 780,
             "normal": rubber_z,
-            "special": chase_z,
-            "special_name": "Tornament Chase",
-            "specialtwo": ultra_z,
-            "special_nametwo": "Angony release",
+            "special": rubber_z,
+            "special_name": "Fire Pistol",
+            "specialtwo": super_z,
+            "special_nametwo": "Flame Meteors",
             "range": 10,
-            "cool": 4
+            "cool": 6
         }
     ]
 ]
 
 def shop():
     pygame.draw.rect(screen, (255, 0, 0), (center_x - 250, center_y - 200, 600, 500))
-    fruits = island_fruits[-2]
+    fruits = island_fruits[-4]
     y = center_x - 170
     for fruit in fruits:
         screen.blit(fruit["image"], (y, center_y))
         y += fruit["image"].get_width() + 100
-    label = pygame.font.Font(None, 50).render("Birthday Bundle", True, (255, 255, 255))
+    label = pygame.font.Font(None, 50).render("Bombing Bundle", True, (255, 255, 255))
     screen.blit(label, (center_x - 100, center_y - 180))
     screen.blit(pygame.image.load("special/thunder.png"), (center_x - 230, center_y - 130))
     screen.blit(pygame.image.load("special/pain.png"), (center_x + 220, center_y - 130))
@@ -1510,6 +1541,7 @@ z = pygame.image.load("zz.png")
 x = pygame.image.load("xx.png")
 driving_boat = False
 cool_down = 0
+sended = False
 cool_down2 = 0
 load()
 raining = False
@@ -1561,6 +1593,10 @@ while running:
                 if len(player["block_fruits"]) >= 8:
                     if event.key == pygame.K_8:         
                         player["current_fruit"] = player["block_fruits"][7]
+
+                if event.key == pygame.K_o:
+                    buy(swords[0])
+                    add(swords[0]["type"])
         elif event.type == pygame.MOUSEBUTTONDOWN:
             pos = pygame.mouse.get_pos()
             
@@ -1584,7 +1620,7 @@ while running:
                             player["money"] -= 10000
                             roll()
                             if transformed:
-                                pic = pygame.transform.scale(pic, (pic.get_width() / 2, pic.get_height() / 2))
+                                pic = pygame.transform.scale(pic, (180, 180))
                                 player["image"] = pic
                                 transformed = False
                     elif pygame.Rect(width - 290, center_y + 100, 140, 50).collidepoint(pos):
@@ -1592,7 +1628,7 @@ while running:
                         chatting = False
                         already_fruit = False
                 if page == "shop":
-                    for fruit in island_fruits[-2]:
+                    for fruit in island_fruits[-4]:
                         if page == "shop" and not clicky:
                             if fruit["rect2"].collidepoint(pos):
                                 if blox_coins >= 0:
@@ -1644,6 +1680,10 @@ while running:
     clock.tick(60)
     screen.fill((0, 105, 148))
     key = pygame.key.get_pressed()
+    if player["lvl"] >= 100:
+        if not sended:
+            add_message(f"A GOD HAS ARRIVED!", (255, 0, 0), messages[-1]["y_pos"] + 30)
+            sended = True
     if elapsed // 1000 >= 60:
         
         if not raining:
@@ -1718,7 +1758,7 @@ while running:
     check_island()
     draw_items()
     draw_boats()
-    screen.blit(player["image"], (center_x - pic.get_width() / 2, center_y - pic.get_height() / 2))
+    screen.blit(player["image"], (center_x - player["image"].get_width() / 2, center_y - player["image"].get_height() / 2))
     pygame.draw.rect(screen, (255, 0, 0), (60, height - 80, 400, 59))
     pygame.draw.rect(screen, (0, 255, 0), (60, height - 80, player["health"] * 4, 59))
     if len(special_atks) > 0:
@@ -1925,7 +1965,7 @@ while running:
            clicked = True
            if atk_elapsed <= 100:
 
-               if player["current_fruit"]["type"] != "BOMB" and player["current_fruit"]["type"] != "PARTY" and player["current_fruit"]["type"] != "BUDDHA" and player["current_fruit"]["type"] != "THUNDER" and player["current_fruit"]["type"] != "MAGMA" and player["current_fruit"]["type"] != "PAIN V2" and player["current_fruit"]["type"] != "PAIN":
+               if player["current_fruit"]["type"] != "FLAME" and player["current_fruit"]["type"] != "BOMB" and player["current_fruit"]["type"] != "PARTY" and player["current_fruit"]["type"] != "BUDDHA" and player["current_fruit"]["type"] != "THUNDER" and player["current_fruit"]["type"] != "MAGMA" and player["current_fruit"]["type"] != "PAIN V2" and player["current_fruit"]["type"] != "PAIN":
                    if direction_aim == "up":
                        if player["current_fruit"]["up_atk"] is not None:
                            attack_rect = pygame.Rect(center_x - pic.get_width() / 2, center_y - pic.get_height() / 2 - 40, 90, 90)
@@ -1958,7 +1998,7 @@ while running:
                start_atk = pygame.time.get_ticks()
                attack_rect = None
     elif mode != "atk":
-        player["speed"] = 6
+        player["speed"] = 10
     for island in islands:
         for boat in boats:
             if page == "home":
