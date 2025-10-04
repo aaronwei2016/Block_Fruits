@@ -373,7 +373,46 @@ def ultra_z():
 
 
 
-
+def mega_z():
+    if player["current_fruit"]:
+        if direction == "left":
+            atk = {
+                "x": 0,
+                "y": 0,
+                "direction": "up",
+                "image": player["current_fruit"]["up_atk"],
+                "rect": pygame.Rect(center_x - player["image"].get_width() + 50, height - 100, 90, 90),
+                "stamina": 5
+            }
+            special_atks.append(atk)
+            atk = {
+                "x": 0,
+                "y": 0,
+                "direction": "down",
+                "image": player["current_fruit"]["up_atk"],
+                "rect": pygame.Rect(center_x - player["image"].get_width() + 50, 100, 90, 90),
+                "stamina": 5
+            }
+            special_atks.append(atk)
+        if direction == "right":
+            atk = {
+                "x": 0,
+                "y": 0,
+                "direction": "up",
+                "image": player["current_fruit"]["up_atk"],
+                "rect": pygame.Rect(center_x + player["image"].get_width() / 2 + 50, height - 100, 90, 90),
+                "stamina": 5
+            }
+            special_atks.append(atk)
+            atk = {
+                "x": 0,
+                "y": 0,
+                "direction": "down",
+                "image": player["current_fruit"]["up_atk"],
+                "rect": pygame.Rect(center_x + player["image"].get_width() / 2 + 50, 100, 90, 90),
+                "stamina": 5
+            }
+            special_atks.append(atk)
         
 
 
@@ -591,7 +630,6 @@ def buy(block_fruit):
                 "awakend": False
             }
         player["block_fruits"].append(new_fruit)
-        fruit["bought"] = True
 special_atks = []
 direction = None
 
@@ -1175,8 +1213,8 @@ island_fruits = [
             "down_atk":  pygame.image.load("fruits/attacks/magma.png"),
             "type": "MAGMA",
             "damage": 77,
-            "special": rubber_z,
-            "special_name": "Volcano Throw",
+            "special": mega_z,
+            "special_name": "Magma Erupt",
             "specialtwo": ultra_z,
             "special_nametwo": "Volcano Erupt",
             "range": 1,
@@ -1620,8 +1658,7 @@ while running:
                             player["money"] -= 10000
                             roll()
                             if transformed:
-                                pic = pygame.transform.scale(pic, (180, 180))
-                                player["image"] = pic
+                                player["image"] = pygame.transform.scale(player["image"], (180, 180))
                                 transformed = False
                     elif pygame.Rect(width - 290, center_y + 100, 140, 50).collidepoint(pos):
                         page = "home"
@@ -1634,15 +1671,13 @@ while running:
                                 if blox_coins >= 0:
                                     clicky = True
                                     blox_coins -= fruit["cost"]
-                                    fruit["bought"] = True
                                     if len(player["block_fruits"]) > 1:
                                         player["block_fruits"] = player["block_fruits"][:-1]
                                         items.remove(items[-1])
                                     buy([fruit])
                                     add(fruit["type"])
                                     if transformed:
-                                        pic = pygame.transform.scale(pic, (pic.get_width() / 2, pic.get_height() / 2))
-                                        player["image"] = pic
+                                        player["image"] = pygame.transform.scale(player["image"], (180, 180))
                                         transformed = False
                                     player["current_fruit"] = player["block_fruits"][-1]
                                     add_message(f"You Got Rewarded {fruit['Name']}!", (255, 0, 0), messages[-1]["y_pos"] + 30)
@@ -1654,14 +1689,13 @@ while running:
                                 if fruit["bought"] is False and player["money"] >= fruit["cost"]:
                                     clicky = True
                                     player["money"] -= fruit["cost"]
-                                    fruit["bought"] = True
                                     if len(player["block_fruits"]) > 1:
                                         player["block_fruits"] = player["block_fruits"][:-1]
                                         items.remove(items[-1])
                                     buy([fruit])
                                     if transformed:
-                                        pic = pygame.transform.scale(pic, (pic.get_width() / 2, pic.get_height() / 2))
-                                        player["image"] = pic
+                                        
+                                        player["image"] = pygame.transform.scale(player["image"], (180, 180))
                                         transformed = False
                                     add(fruit["type"])
                                     player["current_fruit"] = player["block_fruits"][-1]
