@@ -549,6 +549,7 @@ player = {
     "image": pic.copy(),
     "bounty": 0,
     "lvl": 1,
+    "max_health": 100,
     "stats_now": 0,
     "stats_need": 40,
     "energy": 100,
@@ -1347,7 +1348,7 @@ island_fruits = [
             "specialtwo": semi_z,
             "special_nametwo": "Seaquake",
             "range": 2,
-            "cool": 2
+            "cool": 0.90
         },
         {
             "image": pygame.image.load("fruits/shopping/painfruit.png"),
@@ -1644,6 +1645,18 @@ def draw_NPC():
                     if not clicked:
                         clicked = True
                         page = "rolling"
+        if island.enemy_name == "Heaven's Guard":
+            man = {
+                "image": pygame.image.load("NPCS/defenseman.png"),
+                "rect": pygame.Rect(island.rect.x + 250, island.rect.y + 240, 122, 191)
+            }
+            screen.blit(man["image"], (man["rect"].x - 140, man["rect"].y - 100))
+            if man["rect"].colliderect(player["rect"]) and not already_fruit:         
+                screen.blit(super_small.render("[E]Interact", True, (255, 255, 255)), (man["rect"].x, man["rect"].y - 90 + 190))
+                if key[pygame.K_e]:
+                    if not clicked:
+                        clicked = True
+                        page = "defense"
         key = pygame.key.get_pressed()
         screen.blit(blox_fruit_dealer["image"], blox_fruit_dealer["rect"])
         label = pygame.font.Font(None, 25).render(f"Block Fruit Dealer", True, (255, 255, 255))
@@ -1768,6 +1781,19 @@ while running:
                             if transformed:
                                 player["image"] = pygame.transform.scale(player["image"], (180, 180))
                                 transformed = False
+                    elif pygame.Rect(width - 290, center_y + 100, 140, 50).collidepoint(pos):
+                        page = "home"
+                        chatting = False
+                        already_fruit = False
+                if page == "defense":
+                    if pygame.Rect(width - 290, center_y, 140, 50).collidepoint(pos):
+                        if player["health"] <= 240 and player["money"] >= 1000:
+                            player["money"] -= 1000
+                            
+                            player["health"] += 10
+                            if player["health"] == 100:
+                                player["max_health"] += 10
+                            print(player["health"])
                     elif pygame.Rect(width - 290, center_y + 100, 140, 50).collidepoint(pos):
                         page = "home"
                         chatting = False
@@ -1901,7 +1927,7 @@ while running:
     draw_items()
     draw_boats()
     screen.blit(player["image"], (center_x - player["image"].get_width() / 2, center_y - player["image"].get_height() / 2))
-    pygame.draw.rect(screen, (255, 0, 0), (60, height - 80, 400, 59))
+    pygame.draw.rect(screen, (255, 0, 0), (60, height - 80, player["max_health"] * 4, 59))
     pygame.draw.rect(screen, (0, 255, 0), (60, height - 80, player["health"] * 4, 59))
     if len(special_atks) > 0:
         for atk in special_atks[:]:
@@ -2002,7 +2028,7 @@ while running:
                 player["bounty"] += 10
                 player["money"] += enemy.reward
                 if player["current_fruit"]["mas"] < 300:
-                    player["current_fruit"]["mas"] += 1
+                    player["current_fruit"]["mas"] += 100
                 else:
                     player["current_fruit"]["mas"] = 300
                 new_enemy = Enemy(
@@ -2066,8 +2092,8 @@ while running:
     if page == "rolling":
         things = [
             "Hello, Im Zioles.",
-            "If you are level 15+,",
-            "I'll roll you a fruit."
+            "I sell physical fruits.",
+            "I'll give you a one."
         ]
         y = center_y
         pygame.draw.rect(screen, (120, 120, 120), (center_x - 170, center_y - 20, 400, 120))
@@ -2079,6 +2105,29 @@ while running:
         screen.blit(pygame.font.Font(None, 40).render("Yes", True, (255, 255, 255)), (width - 270, center_y + 10))
         pygame.draw.rect(screen, (120, 120, 120), (width - 290, center_y + 100, 140, 50), border_radius=0)
         screen.blit(pygame.font.Font(None, 40).render("No", True, (255, 255, 255)), (width - 270, center_y + 110))
+    if page == "defense":
+        if player["health"] <= 40:
+            things = [
+                "Hey. Are you alright?",
+                "You must be injured!",
+                "I'll boost your stamina!."
+            ]
+        else:
+            things = [
+                "Hey. You look strong.",
+                "I am Gods Healer.",
+                "I'll boost your HP!"
+            ]
+        y = center_y
+        pygame.draw.rect(screen, (120, 120, 120), (center_x - 170, center_y - 20, 400, 120))
+        for thing in things:
+            label = small.render(thing, True, (255, 255, 255))
+            screen.blit(label, (center_x - 150, y))
+            y += 40
+        pygame.draw.rect(screen, (120, 120, 120), (width - 290, center_y, 140, 50), border_radius=0)
+        screen.blit(pygame.font.Font(None, 40).render("Okay", True, (255, 255, 255)), (width - 270, center_y + 10))
+        pygame.draw.rect(screen, (120, 120, 120), (width - 290, center_y + 100, 140, 50), border_radius=0)
+        screen.blit(pygame.font.Font(None, 40).render("No Way", True, (255, 255, 255)), (width - 270, center_y + 110))
     
     
     if mode == "atk":
@@ -2140,7 +2189,7 @@ while running:
                start_atk = pygame.time.get_ticks()
                attack_rect = None
     elif mode != "atk":
-        player["speed"] = 10
+        player["speed"] = 25
     for island in islands:
         for boat in boats:
             if page == "home":
