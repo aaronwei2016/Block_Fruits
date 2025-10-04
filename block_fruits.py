@@ -2002,7 +2002,7 @@ while running:
                 player["bounty"] += 10
                 player["money"] += enemy.reward
                 if player["current_fruit"]["mas"] < 300:
-                    player["current_fruit"]["mas"] += 100
+                    player["current_fruit"]["mas"] += 1
                 else:
                     player["current_fruit"]["mas"] = 300
                 new_enemy = Enemy(
