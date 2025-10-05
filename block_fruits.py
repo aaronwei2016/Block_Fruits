@@ -23,10 +23,6 @@ items = [
     {
         "name": "COMBAT",
         "position": 90
-    },
-    {
-        "name": "DARK",
-        "position": 195
     }
 ]
 
@@ -572,8 +568,7 @@ player = {
             "special_image": pygame.image.load("fruits/attacks/sword.png"),
             "special_image2": pygame.transform.flip(pygame.image.load("fruits/attacks/sword.png"), True, False),
             "awakend": False
-        },
-        swords[0]
+        }
     ],
     "rect": pygame.Rect(center_x - pic.get_width() / 2, center_y - pic.get_height() / 2, pic.get_width(), pic.get_height()),
     "money": 100,
@@ -691,7 +686,7 @@ def show_fruits():
                 label = font.render(f"{fruit['Name']}, ${fruit['cost']}", True, (0, 0, 0))
                 screen.blit(label, (fruit["rect"].x, fruit["rect"].y + fruit["image"].get_height() + 19))
 
-ww = pygame.image.load("fruits/attacks/wisp.png")
+ww = pygame.image.load("fruits/attacks/Parrot_Eagle.png")
 w2 = pygame.image.load("fruits/attacks/Lightning.png")
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, xp, name, hp, speed, damage, lvl, image, x, y, r, reward):
@@ -724,24 +719,18 @@ class Enemy(pygame.sprite.Sprite):
                 self.rect.x -= self.speed
             if self.rect.y > player["rect"].y  and self.rect.y < player["rect"].y + self.range:
                 self.rect.y -= self.speed
-        if self.name == "RIP Commander" and self.charge <= 0 and pygame.Rect(self.rect.x - self.image.get_width(), self.rect.y - self.image.get_height(), self.image.get_width() * 2 + ww.get_width(), self.image.get_height() * 2 + ww.get_height()).colliderect(player["rect"]) and not enemy_attacked:
+        if self.name == "Tryant Of The Skies" and self.charge <= 0 and pygame.Rect(self.rect.x - self.image.get_width(), self.rect.y - self.image.get_height(), self.image.get_width() * 2 + ww.get_width(), self.image.get_height() * 2 + ww.get_height()).colliderect(player["rect"]) and not enemy_attacked:
             player["health"] -= self.damage
             hit = True
             self.charge = 100
         if self.charge > 0:
             self.charge -= 2
-        if self.charge <= 0 and self.name != "RIP Commander" and self.rect.colliderect(player["rect"]) and not hit:
+        if self.charge <= 0 and self.name != "Tryant Of The Skies" and self.rect.colliderect(player["rect"]) and not hit:
             player["health"] -= self.damage
             hit = True
-        if self.charge <= 0 and self.name == "RIP Commander":
-            screen.blit(ww, (self.rect.x, self.rect.y + self.image.get_height()))
+        if self.charge <= 0 and self.name == "Tryant Of The Skies":
+            screen.blit(pygame.transform.flip(ww, True, False), (self.rect.x - self.image.get_width() / 2, self.rect.y))
             screen.blit(ww, (self.rect.x + self.image.get_width(), self.rect.y))
-            screen.blit(ww, (self.rect.x, self.rect.y - self.image.get_height()))        
-            screen.blit(ww, (self.rect.x - self.image.get_width(), self.rect.y))
-            screen.blit(w2, (self.rect.x - self.image.get_width(), self.rect.y + self.image.get_height()))
-            screen.blit(w2, (self.rect.x + self.image.get_width(), self.rect.y + self.image.get_height()))
-            screen.blit(w2, (self.rect.x + self.image.get_width(), self.rect.y - self.image.get_height()))        
-            screen.blit(w2, (self.rect.x - self.image.get_width(), self.rect.y - self.image.get_height()))
         if attack_rect and self.rect.colliderect(attack_rect):
             self.health -= player["damage"]
             if direction_aim == "up":
@@ -811,12 +800,12 @@ messages = [
         "y_pos": 120
     },
     {
-        "name": "THUNDER EVENT IS HERE!",
-        "color": (180, 150, 255),
+        "name": "BOMB EVENT IS HERE!",
+        "color": (0, 0, 0),
         "y_pos": 150
     },
     {
-        "name": "The RIP Commander Charges His Wrath.",
+        "name": "The Tryant Of The Skies...",
         "color": (0, 255, 0),
         "y_pos": 180
     },
@@ -992,7 +981,7 @@ names = [
     "Swan",
     "Hell's Guard",
     "Heaven's Guard",
-    "RIP Commander"
+    "Tryant Of The Skies"
 ]
 index = 0
 
@@ -1024,7 +1013,7 @@ names = [
     "Swan",
     "Hell's Guard",
     "Heaven's Guard",
-    "RIP Commander"
+    "Tryant Of The Skies"
 ]
 
 
@@ -1072,7 +1061,7 @@ quests = [
         "now": 0
     },
     {
-        "name": "RIP Commander",
+        "name": "Tryant Of The Skies",
         "number": 1,
         "money": 10000,
         "xp": 20500,
@@ -1389,12 +1378,12 @@ island_fruits = [
             "rect2": pygame.Rect(center_x - 170, center_y, 130, 130),
             "type": "PARTY",
             "damage": 600,
-            "special": rubber_z,
+            "special": chase_z,
             "special_name": "Disco Bomb",
             "specialtwo": bombing,
             "special_nametwo": "Bombly Downfall",
             "range": 2,
-            "cool": 6
+            "cool": 50
         },
         {
             "image": pygame.image.load("fruits/shopping/Bomb_Fruit.png"),
@@ -1650,13 +1639,16 @@ def draw_NPC():
                 "rect": pygame.Rect(island.rect.x + 250, island.rect.y + 240, 122, 191)
             }
             screen.blit(man["image"], (man["rect"].x - 140, man["rect"].y - 100))
+            label = pygame.font.Font(None, 25).render(f"Strong Healer", True, (255, 255, 255))
+            screen.blit(label, (man["rect"].x - 100, man["rect"].y + 40))
+        
             if man["rect"].colliderect(player["rect"]) and not already_fruit:         
                 screen.blit(super_small.render("[E]Interact", True, (255, 255, 255)), (man["rect"].x, man["rect"].y - 90 + 190))
                 if key[pygame.K_e]:
                     if not clicked:
                         clicked = True
                         page = "defense"
-        if island.enemy_name != "Yeti":
+        if island.enemy_name != "":
             key = pygame.key.get_pressed()
             screen.blit(blox_fruit_dealer["image"], blox_fruit_dealer["rect"])
             label = pygame.font.Font(None, 25).render(f"Block Fruit Dealer", True, (255, 255, 255))
@@ -1787,7 +1779,7 @@ while running:
                         already_fruit = False
                 if page == "defense":
                     if pygame.Rect(width - 290, center_y, 140, 50).collidepoint(pos):
-                        if player["health"] <= 240 and player["money"] >= 1000:
+                        if player["health"] <= 190 and player["money"] >= 1000:
                             player["money"] -= 1000
                             
                             player["health"] += 10
@@ -1886,7 +1878,7 @@ while running:
                 island.spawn_enemys(7)
             else:
                 island.spawn_enemys(1)
-                add_message("The RIP commander wins another Victory", (0, 0, 255), messages[-1]["y_pos"] + 30)
+                add_message("Wings of Wrath Spread", (0, 0, 255), messages[-1]["y_pos"] + 30)
     if player["money"] < 0:
         player["money"] = 0
     for island in islands:
@@ -2019,7 +2011,6 @@ while running:
             player["current_fruit"]["damage"] += player["current_fruit"]["damage"] / 4
             player["current_fruit"]["cool"] / 2
             player["current_fruit"]["awakend"] = True
-        
     for island in islands:
         for enemy in island.enemies.copy():
             if enemy.health <= 0:
@@ -2047,9 +2038,9 @@ while running:
                 island.enemies.add(new_enemy)
                 if quest_earned:
                     current_quest["now"] += 1
-                if enemy.name == "RIP Commander":
+                if enemy.name == "Tryant Of The Skies":
                     blox_coins += 200
-                    add_message("The RIP Commander Dissapears, And Then Reappears...", (255, 0, 0), messages[-1]["y_pos"] + 30)
+                    add_message("Wings Dissapear, And Then Reappears...", (255, 0, 0), messages[-1]["y_pos"] + 30)
                 save()
 
                                
@@ -2110,13 +2101,13 @@ while running:
             things = [
                 "Hey. Are you alright?",
                 "You must be injured!",
-                "I'll boost your stamina!."
+                "I'll boost your health!."
             ]
         else:
             things = [
                 "Hey. You look strong.",
-                "I am Gods Healer.",
-                "I'll boost your HP!"
+                "The max health is 200",
+                "I'll boost your health!"
             ]
         y = center_y
         pygame.draw.rect(screen, (120, 120, 120), (center_x - 170, center_y - 20, 400, 120))
