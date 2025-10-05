@@ -46,8 +46,7 @@ def show_controls():
         "Move:W/A/S/D",
         "Controls Page:C",
         "P:Updates",
-        "i:Shop",
-        "O:???"
+        "i:Shop"
     ]
     y = 150
     for control in controls:
@@ -1657,17 +1656,18 @@ def draw_NPC():
                     if not clicked:
                         clicked = True
                         page = "defense"
-        key = pygame.key.get_pressed()
-        screen.blit(blox_fruit_dealer["image"], blox_fruit_dealer["rect"])
-        label = pygame.font.Font(None, 25).render(f"Block Fruit Dealer", True, (255, 255, 255))
-        screen.blit(label, (blox_fruit_dealer["rect"].x + 10, blox_fruit_dealer["rect"].y + 110))
-        if blox_fruit_dealer["rect"].colliderect(player["rect"]) and not already_fruit:         
-            screen.blit(super_small.render("[E]Buy Block Fruit", True, (255, 255, 255)), (blox_fruit_dealer["rect"].x, blox_fruit_dealer["rect"].y + 190))
-            if key[pygame.K_e]:
-                chatting = True
-            if chatting:
-                chatting = True
-                page = "fruits"
+        if island.enemy_name != "Yeti":
+            key = pygame.key.get_pressed()
+            screen.blit(blox_fruit_dealer["image"], blox_fruit_dealer["rect"])
+            label = pygame.font.Font(None, 25).render(f"Block Fruit Dealer", True, (255, 255, 255))
+            screen.blit(label, (blox_fruit_dealer["rect"].x + 10, blox_fruit_dealer["rect"].y + 110))
+            if blox_fruit_dealer["rect"].colliderect(player["rect"]) and not already_fruit:         
+                screen.blit(super_small.render("[E]Buy Block Fruit", True, (255, 255, 255)), (blox_fruit_dealer["rect"].x, blox_fruit_dealer["rect"].y + 190))
+                if key[pygame.K_e]:
+                    chatting = True
+                if chatting:
+                    chatting = True
+                    page = "fruits"
             
          
        
