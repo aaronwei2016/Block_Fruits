@@ -510,6 +510,16 @@ def dash_z():
                     player["y"] -= player["speed"]
                     if not driving_boat:
                         boat["rect"].y += player["speed"]
+                    new_attack = {
+                        "x": center_x - player["image"].get_width() / 2,
+                        "y": 0,
+                        "direction": "down",
+                        "stamina": 2,
+                        "image": player["current_fruit"]["down_atk"],
+                        "rect": pygame.Rect(center_x - player["image"].get_width() / 2, center_y - player["image"].get_height() / 2, player["image"].get_width(), player["image"].get_height())
+                    }
+
+                    special_atks.append(new_attack)
                     
                         
                 if direction == "down":
@@ -522,6 +532,16 @@ def dash_z():
                     player["y"] += player["speed"]
                     if not driving_boat:
                         boat["rect"].y -= player["speed"]
+                    new_attack = {
+                        "x": center_x - player["image"].get_width() / 2,
+                        "y": 0,
+                        "direction": "up",
+                        "stamina": 2,
+                        "image": player["current_fruit"]["up_atk"],
+                        "rect": pygame.Rect(center_x - player["image"].get_width() / 2, center_y - player["image"].get_height() / 2, player["image"].get_width(), player["image"].get_height())
+                    }
+
+                    special_atks.append(new_attack)
                 if direction == "left":
                     future_y = player["rect"].copy()
                     future_y.x -= 5
@@ -532,6 +552,16 @@ def dash_z():
                     player["x"] -= player["speed"]
                     if not driving_boat:
                         boat["rect"].x += player["speed"]
+                    new_attack = {
+                        "x": center_x - player["image"].get_width() / 2,
+                        "y": 0,
+                        "direction": "right",
+                        "stamina": 2,
+                        "image": player["current_fruit"]["right_atk"],
+                        "rect": pygame.Rect(center_x - player["image"].get_width() / 2, center_y - player["image"].get_height() / 2, player["image"].get_width(), player["image"].get_height())
+                    }
+
+                    special_atks.append(new_attack)
                 if direction == "right":
                     future_y = player["rect"].copy()
                     future_y.x += 5
@@ -542,6 +572,16 @@ def dash_z():
                     player["x"] += player["speed"]
                     if not driving_boat:
                         boat["rect"].x -= player["speed"]
+                    new_attack = {
+                        "x": center_x - player["image"].get_width() / 2,
+                        "y": 0,
+                        "direction": "left",
+                        "stamina": 2,
+                        "image": player["current_fruit"]["left_atk"],
+                        "rect": pygame.Rect(center_x - player["image"].get_width() / 2, center_y - player["image"].get_height() / 2, player["image"].get_width(), player["image"].get_height())
+                    }
+
+                    special_atks.append(new_attack)
                         
                 for atk in special_atks[:]:
                     if direction == "up":
@@ -562,6 +602,25 @@ def dash_z():
                     if direction == "left":
                         bomb["rect"].x -= player["speed"] / 6
                 player["speed"] = 15
+
+
+
+def godly_z():
+    if player["current_fruit"]:
+        dash_z()
+        for island in islands:
+            for enemy in island.enemies:
+                if enemy.rect.colliderect(player["rect"]):
+                    if direction == "up":
+                        enemy.rect.y -= 400
+                    elif direction == "down":
+                        enemy.rect.y += 400
+                    if direction == "left":
+                        enemy.rect.x -= 400
+                    elif direction == "right":
+                        enemy.rect.x += 400
+                    enemy.health -= player["current_fruit"]["damage"]
+        
 
 
 wsws = pygame.image.load("fruits/attacks/bladeleft.png")
@@ -631,7 +690,7 @@ player = {
             "damage": 9,
             "mas": 1,
             "special_name": "Quick Dash",
-            "special": rubber_z,
+            "special": dash_z,
             "special_nametwo": "Sword Toss",
             "specialtwo": rubber_z,
             "range": 1,
@@ -1224,7 +1283,7 @@ def semi_z():
             new_atk = {
                 "image": pygame.image.load("fruits/attacks/sea.png"),
                 "direction": "down",
-                "stamina": 100000000000000000000000000,
+                "stamina": 100000000000000000000000000000000000000000000000000000000,
                 "rect": pygame.Rect(-100, center_y - 280, pygame.image.load("fruits/attacks/sea.png").get_width(), pygame.image.load("fruits/attacks/sea.png").get_height()),
             }
             special_atks.append(new_atk)
@@ -1402,8 +1461,8 @@ island_fruits = [
             "type": "QUAKE",
             "rect2": pygame.Rect(center_x - 170, center_y, 130, 130),
             "damage": 520,
-            "special": rubber_z,
-            "special_name": "Quake Punch",
+            "special": dash_z,
+            "special_name": "Quake Knock",
             "specialtwo": semi_z,
             "special_nametwo": "Seaquake",
             "range": 2,
@@ -1547,7 +1606,7 @@ island_fruits = [
             "damage": 710,
             "special": rubber_z,
             "special_name": "Sky Wraith",
-            "specialtwo": ultra_z,
+            "specialtwo": super_z,
             "special_nametwo": "Thunder Storm",
             "range": 2,
             "cool": 6
