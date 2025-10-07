@@ -493,6 +493,77 @@ def bombing():
     super_z()
 
 
+
+def dash_z():
+    global direction
+    if player["current_fruit"]:
+        for island in islands:
+            player["speed"] = 400
+            if page == "home":
+                if direction == "up":
+                    future_y = player["rect"].copy()
+                    future_y.y -= 5
+                    direction = "up"
+                    for enemy in island.enemies:
+                        enemy.rect.y += player["speed"]
+                    island.rect.y += player["speed"]
+                    player["y"] -= player["speed"]
+                    if not driving_boat:
+                        boat["rect"].y += player["speed"]
+                    
+                        
+                if direction == "down":
+                    future_y = player["rect"].copy()
+                    future_y.y += 5
+                    direction = "down"
+                    for enemy in island.enemies:
+                        enemy.rect.y -= player["speed"]
+                    island.rect.y -= player["speed"]
+                    player["y"] += player["speed"]
+                    if not driving_boat:
+                        boat["rect"].y -= player["speed"]
+                if direction == "left":
+                    future_y = player["rect"].copy()
+                    future_y.x -= 5
+                    direction = "left"
+                    for enemy in island.enemies:
+                        enemy.rect.x += player["speed"]
+                    island.rect.x += player["speed"]
+                    player["x"] -= player["speed"]
+                    if not driving_boat:
+                        boat["rect"].x += player["speed"]
+                if direction == "right":
+                    future_y = player["rect"].copy()
+                    future_y.x += 5
+                    direction = "right"
+                    for enemy in island.enemies:
+                        enemy.rect.x -= player["speed"]
+                    island.rect.x -= player["speed"]
+                    player["x"] += player["speed"]
+                    if not driving_boat:
+                        boat["rect"].x -= player["speed"]
+                        
+                for atk in special_atks[:]:
+                    if direction == "up":
+                        atk["rect"].y += player["speed"] / 6
+                    if direction == "down":
+                        atk["rect"].y -= player["speed"] / 6
+                    if direction == "left":
+                        atk["rect"].x += player["speed"] / 6
+                    if direction == "right":
+                        atk["rect"].x -= player["speed"] / 6
+                for bomb in bombs[:]:
+                    if direction == "up":
+                        bomb["rect"].y += player["speed"] / 6
+                    if direction == "down":
+                        bomb["rect"].y -= player["speed"] / 6
+                    if direction == "right":
+                        bomb["rect"].x += player["speed"] / 6
+                    if direction == "left":
+                        bomb["rect"].x -= player["speed"] / 6
+                player["speed"] = 15
+
+
 wsws = pygame.image.load("fruits/attacks/bladeleft.png")
 swords = [
     {
@@ -559,9 +630,9 @@ player = {
             "type": "COMBAT",
             "damage": 9,
             "mas": 1,
-            "special_name": "Sword Toss",
+            "special_name": "Quick Dash",
             "special": rubber_z,
-            "special_nametwo": "Sword Spin",
+            "special_nametwo": "Sword Toss",
             "specialtwo": rubber_z,
             "range": 1,
             "cool": 2,
@@ -1252,16 +1323,16 @@ island_fruits = [
             "bought": False,
             "rect": pygame.Rect(center_x - 100, center_y - 100, 155, 155),
             "img_rect": pygame.Rect(center_x - 100, center_y - 100, 70, 70),
-            "left_atk": pygame.image.load("fruits/attacks/magma.png"),
-            "right_atk": pygame.image.load("fruits/attacks/magma.png"),
-            "up_atk": pygame.image.load("fruits/attacks/magma.png"),
-            "down_atk":  pygame.image.load("fruits/attacks/magma.png"),
+            "left_atk": pygame.transform.scale(pygame.image.load("fruits/attacks/meteor.png"), (pygame.image.load("fruits/attacks/meteor.png").get_width() * 2, pygame.image.load("fruits/attacks/meteor.png").get_height() * 2)),
+            "right_atk": pygame.transform.scale(pygame.image.load("fruits/attacks/meteor.png"), (pygame.image.load("fruits/attacks/meteor.png").get_width() * 2, pygame.image.load("fruits/attacks/meteor.png").get_height() * 2)),
+            "up_atk": pygame.transform.scale(pygame.image.load("fruits/attacks/meteor.png"), (pygame.image.load("fruits/attacks/meteor.png").get_width() * 2, pygame.image.load("fruits/attacks/meteor.png").get_height() * 2)),
+            "down_atk": pygame.transform.scale(pygame.image.load("fruits/attacks/meteor.png"), (pygame.image.load("fruits/attacks/meteor.png").get_width() * 2, pygame.image.load("fruits/attacks/meteor.png").get_height() * 2)),
             "type": "MAGMA",
             "damage": 77,
-            "special": mega_z,
-            "special_name": "Magma Erupt",
-            "specialtwo": ultra_z,
-            "special_nametwo": "Volcano Erupt",
+            "special": dash_z,
+            "special_name": "Magma Dash",
+            "specialtwo": super_z,
+            "special_nametwo": "Magma Meteors",
             "range": 1,
             "cool": 2
         }
@@ -2179,8 +2250,8 @@ while running:
                attacking = False
                start_atk = pygame.time.get_ticks()
                attack_rect = None
-    elif mode != "atk":
-        player["speed"] = 25
+    if mode != "atk":
+        player["speed"] = 15
     for island in islands:
         for boat in boats:
             if page == "home":
