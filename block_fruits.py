@@ -493,12 +493,59 @@ def bombing():
     super_z()
 
 
+def dark_slash():
+    global direction_aim, direction, clicked, attacking
+    if player["current_fruit"]:
+        clicked = True
+        attacking = True
+        start_atk = pygame.time.get_ticks()
+        direction_aim = direction
+        atk_elapsed = now - start_atk
+        fruit = player["current_fruit"]
+        if atk_elapsed <= 100:
+            if player["current_fruit"]["type"] == "DARK V2" and player["current_fruit"]["type"] != "BOMB" and player["current_fruit"]["type"] != "PARTY" and player["current_fruit"]["type"] != "BUDDHA" and player["current_fruit"]["type"] != "THUNDER" and player["current_fruit"]["type"] != "MAGMA" and player["current_fruit"]["type"] != "PAIN V2" and player["current_fruit"]["type"] != "PAIN":
+                if direction_aim == "up":
+                    
+                    if player["current_fruit"]["up_atk"] is not None:
+                        attack_rect = pygame.Rect(center_x - pic.get_width() / 2, center_y - pic.get_height() / 2 - 40, 90, 90)
+                        screen.blit(fruit["up_atk"], (center_x - pic.get_width() / 2, center_y - pic.get_height() / 2 - 40))
+                    else:
+                        attack_rect = pygame.Rect(center_x - pic.get_width() / 2, center_y - pic.get_height() / 2, pic.get_width(), pic.get_height())
+                elif direction_aim == "down":
+                    if player["current_fruit"]["down_atk"] is not None:
+                        attack_rect = pygame.Rect(center_x - pic.get_width() / 2, center_y - pic.get_height() / 2 + 80, 90, 90)
+                        screen.blit(fruit["down_atk"], (center_x - pic.get_width() / 2, center_y - pic.get_height() / 2 + 80))
+                    else:
+                        attack_rect = pygame.Rect(center_x - pic.get_width() / 2, center_y - pic.get_height(), pic.get_width(), pic.get_height())
+                if direction_aim == "left":
+                    if player["current_fruit"]["left_atk"] is not None:
+                        attack_rect = pygame.Rect(center_x - pic.get_width() / 2 - 40, center_y - pic.get_height() / 2, 90, 90)
+                        screen.blit(fruit["left_atk"], (center_x - pic.get_width() / 2 - 40, center_y - pic.get_height() / 2 + player["current_fruit"]["left_atk"].get_height() / 2))
+                    else:
+                        attack_rect = pygame.Rect(center_x - pic.get_width() / 2, center_y - pic.get_height() / 2, pic.get_width(), pic.get_height())
+                elif direction_aim == "right":
+                    if player["current_fruit"]["right_atk"] is not None:
+                        attack_rect = pygame.Rect(center_x + pic.get_width(), center_y - pic.get_height() / 2, 90, 90)
+                        screen.blit(fruit["right_atk"], (center_x - pic.get_width() / 2 + 120, center_y - pic.get_height() / 2 + player["current_fruit"]["left_atk"].get_height() / 2))
+                    else:
+                        attack_rect = pygame.Rect(center_x - pic.get_width() / 2, center_y - pic.get_height() / 2, pic.get_width(), pic.get_height())
+           
+                                                                                                                                
+        if elapsed >= 101:
+            attacking = False
+            start_atk = pygame.time.get_ticks()
+            attack_rect = None
+
+direction_aim = None
 
 def dash_z():
-    global direction
+    global direction, direction_aim, clicked
     if player["current_fruit"]:
         for island in islands:
-            player["speed"] = 400
+            if player["current_fruit"]["type"] != "DARK V2":
+                player["speed"] = 400
+            else:
+                player["speed"] = 600
             if page == "home":
                 if direction == "up":
                     future_y = player["rect"].copy()
@@ -510,16 +557,28 @@ def dash_z():
                     player["y"] -= player["speed"]
                     if not driving_boat:
                         boat["rect"].y += player["speed"]
-                    new_attack = {
-                        "x": center_x - player["image"].get_width() / 2,
-                        "y": 0,
-                        "direction": "down",
-                        "stamina": 2,
-                        "image": player["current_fruit"]["down_atk"],
-                        "rect": pygame.Rect(center_x - player["image"].get_width() / 2, center_y - player["image"].get_height() / 2, player["image"].get_width(), player["image"].get_height())
-                    }
+                    if player["current_fruit"]["type"]!= "DARK V2":
+                        new_attack = {
+                            "x": center_x - player["image"].get_width() / 2,
+                            "y": 0,
+                            "direction": "down",
+                            "stamina": 2,
+                            "image": player["current_fruit"]["down_atk"],
+                            "rect": pygame.Rect(center_x - player["image"].get_width() / 2, center_y - player["image"].get_height() / 2, player["image"].get_width(), player["image"].get_height())
+                        }
 
-                    special_atks.append(new_attack)
+                        special_atks.append(new_attack)
+                    else:
+                        new_attack = {
+                            "x": center_x - player["image"].get_width() / 2,
+                            "y": 0,
+                            "direction": "down",
+                            "stamina": 2,
+                            "image": None,
+                            "rect": pygame.Rect(center_x - player["image"].get_width() / 2, center_y - player["image"].get_height() / 2, player["image"].get_width(), player["image"].get_height())
+                        }
+
+                        special_atks.append(new_attack)
                     
                         
                 if direction == "down":
@@ -532,16 +591,28 @@ def dash_z():
                     player["y"] += player["speed"]
                     if not driving_boat:
                         boat["rect"].y -= player["speed"]
-                    new_attack = {
-                        "x": center_x - player["image"].get_width() / 2,
-                        "y": 0,
-                        "direction": "up",
-                        "stamina": 2,
-                        "image": player["current_fruit"]["up_atk"],
-                        "rect": pygame.Rect(center_x - player["image"].get_width() / 2, center_y - player["image"].get_height() / 2, player["image"].get_width(), player["image"].get_height())
-                    }
+                    if player["current_fruit"]["type"]!= "DARK V2":
+                        new_attack = {
+                            "x": center_x - player["image"].get_width() / 2,
+                            "y": 0,
+                            "direction": "up",
+                            "stamina": 2,
+                            "image": player["current_fruit"]["up_atk"],
+                            "rect": pygame.Rect(center_x - player["image"].get_width() / 2, center_y - player["image"].get_height() / 2, player["image"].get_width(), player["image"].get_height())
+                        }
 
-                    special_atks.append(new_attack)
+                        special_atks.append(new_attack)
+                    else:
+                        new_attack = {
+                            "x": center_x - player["image"].get_width() / 2,
+                            "y": 0,
+                            "direction": "down",
+                            "stamina": 2,
+                            "image": None,
+                            "rect": pygame.Rect(center_x - player["image"].get_width() / 2, center_y - player["image"].get_height() / 2, player["image"].get_width(), player["image"].get_height())
+                        }
+
+                        special_atks.append(new_attack)
                 if direction == "left":
                     future_y = player["rect"].copy()
                     future_y.x -= 5
@@ -552,16 +623,28 @@ def dash_z():
                     player["x"] -= player["speed"]
                     if not driving_boat:
                         boat["rect"].x += player["speed"]
-                    new_attack = {
-                        "x": center_x - player["image"].get_width() / 2,
-                        "y": 0,
-                        "direction": "right",
-                        "stamina": 2,
-                        "image": player["current_fruit"]["right_atk"],
-                        "rect": pygame.Rect(center_x - player["image"].get_width() / 2, center_y - player["image"].get_height() / 2, player["image"].get_width(), player["image"].get_height())
-                    }
+                    if player["current_fruit"]["type"]!= "DARK V2":
+                        new_attack = {
+                            "x": center_x - player["image"].get_width() / 2,
+                            "y": 0,
+                            "direction": "right",
+                            "stamina": 2,
+                            "image": player["current_fruit"]["right_atk"],
+                            "rect": pygame.Rect(center_x - player["image"].get_width() / 2, center_y - player["image"].get_height() / 2, player["image"].get_width(), player["image"].get_height())
+                        }
 
-                    special_atks.append(new_attack)
+                        special_atks.append(new_attack)
+                    else:
+                        new_attack = {
+                            "x": center_x - player["image"].get_width() / 2,
+                            "y": 0,
+                            "direction": "down",
+                            "stamina": 2,
+                            "image": None,
+                            "rect": pygame.Rect(center_x - player["image"].get_width() / 2, center_y - player["image"].get_height() / 2, player["image"].get_width(), player["image"].get_height())
+                        }
+
+                        special_atks.append(new_attack)
                 if direction == "right":
                     future_y = player["rect"].copy()
                     future_y.x += 5
@@ -572,17 +655,37 @@ def dash_z():
                     player["x"] += player["speed"]
                     if not driving_boat:
                         boat["rect"].x -= player["speed"]
-                    new_attack = {
-                        "x": center_x - player["image"].get_width() / 2,
-                        "y": 0,
-                        "direction": "left",
-                        "stamina": 2,
-                        "image": player["current_fruit"]["left_atk"],
-                        "rect": pygame.Rect(center_x - player["image"].get_width() / 2, center_y - player["image"].get_height() / 2, player["image"].get_width(), player["image"].get_height())
-                    }
+                    if player["current_fruit"]["type"]!= "DARK V2":
+                        new_attack = {
+                            "x": center_x - player["image"].get_width() / 2,
+                            "y": 0,
+                            "direction": "left",
+                            "stamina": 2,
+                            "image": player["current_fruit"]["left_atk"],
+                            "rect": pygame.Rect(center_x - player["image"].get_width() / 2, center_y - player["image"].get_height() / 2, player["image"].get_width(), player["image"].get_height())
+                        }
 
-                    special_atks.append(new_attack)
-                        
+                        special_atks.append(new_attack)
+                    else:
+                        new_attack = {
+                            "x": center_x - player["image"].get_width() / 2,
+                            "y": 0,
+                            "direction": "down",
+                            "stamina": 2,
+                            "image": None,
+                            "rect": pygame.Rect(center_x - player["image"].get_width() / 2, center_y - player["image"].get_height() / 2, player["image"].get_width(), player["image"].get_height())
+                        }
+
+                        special_atks.append(new_attack)
+                if player["current_fruit"]["type"] == "DARK V2":
+                    clicked = True
+                    attacking = True
+                    start_atk = pygame.time.get_ticks()
+                    direction_aim = direction
+                    if player["current_fruit"]:
+                        fruit = player["current_fruit"]
+                    dark_slash()
+                    
                 for atk in special_atks[:]:
                     if direction == "up":
                         atk["rect"].y += player["speed"] / 6
@@ -1481,7 +1584,7 @@ island_fruits = [
             "up_atk": pygame.transform.flip(wispy, True, False),
             "down_atk": pygame.transform.flip(wispy, True, False),
             "type": "PAIN",
-            "damage": 300,
+            "damage": 600,
             "normal": rubber_z,
             "special": rubber_z,
             "special_name": "Angony Chase",
@@ -1603,7 +1706,7 @@ island_fruits = [
             "up_atk": pygame.image.load("fruits/attacks/Lightning.png"),
             "down_atk": pygame.image.load("fruits/attacks/Lightning.png"),
             "type": "THUNDER",
-            "damage": 710,
+            "damage": 900,
             "special": rubber_z,
             "special_name": "Sky Wraith",
             "specialtwo": super_z,
@@ -1624,7 +1727,7 @@ island_fruits = [
             "up_atk": pygame.image.load("fruits/attacks/dragonup.png"),
             "down_atk": pygame.transform.flip(pygame.image.load("fruits/attacks/dragonup.png"), False, True),
             "type": "FLAME",
-            "damage": 780,
+            "damage": 600,
             "normal": rubber_z,
             "special": rubber_z,
             "special_name": "Fire Pistol",
@@ -1763,6 +1866,19 @@ def draw_NPC():
                     if not clicked:
                         clicked = True
                         page = "rolling"
+        if island.enemy_name == "Bandit":
+            robot = {
+                "image": pygame.image.load("NPCS/robotmega.png"),
+                "rect": pygame.Rect(island.rect.x + 250, island.rect.y + 240, 122, 191)
+            }
+            screen.blit(robot["image"], (robot["rect"].x - 25, robot["rect"].y - 100))
+            if robot["rect"].colliderect(player["rect"]):       
+                screen.blit(super_small.render("[E]Interact", True, (255, 255, 255)), (robot["rect"].x, robot["rect"].y - 90 + 190))
+                if pygame.key.get_pressed()[pygame.K_e]:
+                    if not clicked:
+                        clicked = True
+                        page = "robotmega"
+                
         if island.enemy_name == "Heaven's Guard":
             man = {
                 "image": pygame.image.load("NPCS/defenseman.png"),
@@ -1903,6 +2019,35 @@ while running:
                             if transformed:
                                 player["image"] = pygame.transform.scale(player["image"], (180, 180))
                                 transformed = False
+                    elif pygame.Rect(width - 290, center_y + 100, 140, 50).collidepoint(pos):
+                        page = "home"
+                        chatting = False
+                        already_fruit = False
+                if page == "robotmega":
+                    if pygame.Rect(width - 290, center_y, 140, 50).collidepoint(pos):
+                        if player["lvl"] >= 250 and player["money"] >= 10000:
+                            player["money"] -= 100000
+                            new_sword = {
+                                "Name": "Dark Blade",
+                                "type": "DARK V2",
+                                "damage": 800,
+                                "special": dash_z,
+                                "special_name": "Samurai Wrath",
+                                "special_nametwo": "Dark Slash",
+                                "specialtwo": rubber_z,
+                                "left_atk": wsws,
+                                "right_atk": pygame.transform.flip(wsws, True, False),
+                                "up_atk": wsws,
+                                "buying_img": None,
+                                "image": wsws,
+                                "cool": 6,
+                                "range": 1,
+                                "awakend": False,
+                                "mas": 1,
+                                "down_atk": pygame.image.load("fruits/attacks/Dark_Blade.png")
+                            }
+                            player["block_fruits"].append(new_sword)
+                            add(new_sword["type"])
                     elif pygame.Rect(width - 290, center_y + 100, 140, 50).collidepoint(pos):
                         page = "home"
                         chatting = False
@@ -2207,6 +2352,29 @@ while running:
             y += 40
         pygame.draw.rect(screen, (120, 120, 120), (width - 290, center_y, 140, 50), border_radius=0)
         screen.blit(pygame.font.Font(None, 40).render("Yes", True, (255, 255, 255)), (width - 270, center_y + 10))
+        pygame.draw.rect(screen, (120, 120, 120), (width - 290, center_y + 100, 140, 50), border_radius=0)
+        screen.blit(pygame.font.Font(None, 40).render("No", True, (255, 255, 255)), (width - 270, center_y + 110))
+    if page == "robotmega":
+        if player["lvl"] >= 250:
+            things = [
+                "Hello. You must have Dark",
+                "Blade. I can upgrade it to",
+                "V2 if yo give me 100000$"
+            ]
+        if player["lvl"] < 250:
+            things = [
+                "Idk what are you. Get",
+                "out of here and stop",
+                "talking to me!!!!!!!!!"
+            ]
+        y = center_y
+        pygame.draw.rect(screen, (120, 120, 120), (center_x - 170, center_y - 20, 400, 120))
+        for thing in things:
+            label = small.render(thing, True, (255, 255, 255))
+            screen.blit(label, (center_x - 150, y))
+            y += 40
+        pygame.draw.rect(screen, (120, 120, 120), (width - 290, center_y, 140, 50), border_radius=0)
+        screen.blit(pygame.font.Font(None, 40).render("Okay", True, (255, 255, 255)), (width - 270, center_y + 10))
         pygame.draw.rect(screen, (120, 120, 120), (width - 290, center_y + 100, 140, 50), border_radius=0)
         screen.blit(pygame.font.Font(None, 40).render("No", True, (255, 255, 255)), (width - 270, center_y + 110))
     
