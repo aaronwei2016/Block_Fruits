@@ -503,7 +503,7 @@ def dark_slash():
         atk_elapsed = now - start_atk
         fruit = player["current_fruit"]
         if atk_elapsed <= 100:
-            if player["current_fruit"]["type"] == "DARK V2" and player["current_fruit"]["type"] != "BOMB" and player["current_fruit"]["type"] != "PARTY" and player["current_fruit"]["type"] != "BUDDHA" and player["current_fruit"]["type"] != "THUNDER" and player["current_fruit"]["type"] != "MAGMA" and player["current_fruit"]["type"] != "PAIN V2" and player["current_fruit"]["type"] != "PAIN":
+            if player["current_fruit"]["type"] != "BOMB" and player["current_fruit"]["type"] != "PARTY" and player["current_fruit"]["type"] != "BUDDHA" and player["current_fruit"]["type"] != "THUNDER" and player["current_fruit"]["type"] != "MAGMA" and player["current_fruit"]["type"] != "PAIN V2" and player["current_fruit"]["type"] != "PAIN":
                 if direction_aim == "up":
                     
                     if player["current_fruit"]["up_atk"] is not None:
@@ -545,7 +545,7 @@ def dash_z():
             if player["current_fruit"]["type"] != "DARK V2":
                 player["speed"] = 400
             else:
-                player["speed"] = 600
+                player["speed"] = 700
             if page == "home":
                 if direction == "up":
                     future_y = player["rect"].copy()
@@ -557,7 +557,7 @@ def dash_z():
                     player["y"] -= player["speed"]
                     if not driving_boat:
                         boat["rect"].y += player["speed"]
-                    if player["current_fruit"]["type"]!= "DARK V2":
+                    if player["current_fruit"]["type"] != "RUBBER" and player["current_fruit"]["type"]!= "DARK V2":
                         new_attack = {
                             "x": center_x - player["image"].get_width() / 2,
                             "y": 0,
@@ -591,7 +591,7 @@ def dash_z():
                     player["y"] += player["speed"]
                     if not driving_boat:
                         boat["rect"].y -= player["speed"]
-                    if player["current_fruit"]["type"]!= "DARK V2":
+                    if player["current_fruit"]["type"] != "RUBBER" and player["current_fruit"]["type"]!= "DARK V2":
                         new_attack = {
                             "x": center_x - player["image"].get_width() / 2,
                             "y": 0,
@@ -623,7 +623,7 @@ def dash_z():
                     player["x"] -= player["speed"]
                     if not driving_boat:
                         boat["rect"].x += player["speed"]
-                    if player["current_fruit"]["type"]!= "DARK V2":
+                    if player["current_fruit"]["type"] != "RUBBER" and player["current_fruit"]["type"] != "DARK V2":
                         new_attack = {
                             "x": center_x - player["image"].get_width() / 2,
                             "y": 0,
@@ -655,7 +655,7 @@ def dash_z():
                     player["x"] += player["speed"]
                     if not driving_boat:
                         boat["rect"].x -= player["speed"]
-                    if player["current_fruit"]["type"]!= "DARK V2":
+                    if player["current_fruit"]["type"] != "RUBBER" and player["current_fruit"]["type"]!= "DARK V2":
                         new_attack = {
                             "x": center_x - player["image"].get_width() / 2,
                             "y": 0,
@@ -677,7 +677,7 @@ def dash_z():
                         }
 
                         special_atks.append(new_attack)
-                if player["current_fruit"]["type"] == "DARK V2":
+                if player["current_fruit"]["type"] == "RUBBER" or player["current_fruit"]["type"] == "DARK V2":
                     clicked = True
                     attacking = True
                     start_atk = pygame.time.get_ticks()
@@ -710,9 +710,9 @@ def dash_z():
 
 def godly_z():
     if player["current_fruit"]:
-        dash_z()
         for island in islands:
             for enemy in island.enemies:
+                dark_slash()
                 if enemy.rect.colliderect(player["rect"]):
                     if direction == "up":
                         enemy.rect.y -= 400
@@ -1448,8 +1448,8 @@ island_fruits = [
             "damage": 30,
             "special": rubber_z,
             "special_name": "Rubber Rocket",
-            "specialtwo": ultra_z,
-            "special_nametwo": "Rubber Barrage",
+            "specialtwo": dash_z,
+            "special_nametwo": "Rubber Cannon",
             "range": 1,
             "cool": 2
         }
@@ -1564,8 +1564,8 @@ island_fruits = [
             "type": "QUAKE",
             "rect2": pygame.Rect(center_x - 170, center_y, 130, 130),
             "damage": 520,
-            "special": dash_z,
-            "special_name": "Quake Knock",
+            "special": godly_z,
+            "special_name": "Quake Punch",
             "specialtwo": semi_z,
             "special_nametwo": "Seaquake",
             "range": 2,
