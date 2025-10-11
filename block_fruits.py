@@ -1340,16 +1340,16 @@ def draw_quest_npc():
                 questing = not questing
  
 wispy = pygame.image.load("fruits/attacks/wisp.png")
-pain = pygame.image.load("updates/thunderupdate.png")
+pain = pygame.image.load("updates/painvthunder.png")
 updates = [
     {
         "image": pain,
         "y_pos": 60,
         "name": "PAIN VS THUNDER",
         "log": [
-            "Cooming Soon...",
-            "Cooming Soon...",
-            "Cooming Soon..."
+            "Pain is reworked!",
+            "Tryant of the skies!",
+            "Thunder is reworked!"
         ]
     }
 ]
@@ -1515,7 +1515,7 @@ def show_updates():
     for update in updates:
         label = small.render(f"{update['name']}", True, (0, 0, 0))
         screen.blit(update["image"], (290, update["y_pos"]))
-        pygame.draw.rectect(screen, (255, 255, 0), (290, update["y_pos"] - 40, update["image"].get_width(), 40))
+        pygame.draw.rect(screen, (255, 255, 0), (290, update["y_pos"] - 40, update["image"].get_width(), 40))
         screen.blit(label, (305, update["y_pos"] - 30))
         pygame.draw.rect(screen, (0, 0, 0), (290, update["y_pos"] + 160, 300, 150))
         y22 = update["y_pos"] + 170
