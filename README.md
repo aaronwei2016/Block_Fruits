@@ -25,10 +25,9 @@ If game is glitching:
 
 Cooming soon :
 
-1.Tryant of the seas
+1.THUNDER BOSS
 
-
-2.Flame Rework
+2.???
 
 
 
@@ -74,4 +73,4 @@ Whats New:
 
 Whats Next :
 
-cooming sooon...
+PAIN REWORK AGAIN
