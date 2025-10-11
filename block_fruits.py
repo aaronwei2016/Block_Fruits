@@ -544,6 +544,11 @@ def dash_z():
         for island in islands:
             if player["current_fruit"]["type"] != "DARK V2":
                 player["speed"] = 400
+            elif player["current_fruit"]["type"] == "BUDDHA":
+                if not transformed:
+                    player["speed"] = 600
+                if player["rect"].get_width() >= 180 * 3:
+                    player["speed"] = 1200
             else:
                 player["speed"] = 700
             if page == "home":
@@ -1340,10 +1345,10 @@ updates = [
     {
         "image": pain,
         "y_pos": 60,
-        "name": "BOMB event",
+        "name": "PAIN VS THUNDER",
         "log": [
-            "Bomb Fruit",
-            "Bomb Rain",
+            "Cooming Soon...",
+            "Cooming Soon...",
             "Cooming Soon..."
         ]
     }
@@ -1353,7 +1358,7 @@ def transform_z():
     if player["current_fruit"]["type"] == "BUDDHA":
        if not transformed:
            player["image"] = pygame.transform.scale(player["image"], (player["image"].get_width() * 2, player["image"].get_height() * 2))
-           player["block_fruits"][0]["damage"] = 600
+           player["block_fruits"][0]["damage"] = 500
            transformed = True
        else:
            pic = pygame.transform.scale(pic, (180, 180))
@@ -1374,6 +1379,119 @@ def chase_z():
                 "y": fruit_y,
                 "image": player["current_fruit"]["left_atk"],
                 "rect": pygame.Rect(fruit_x, fruit_y, 90, 90),
+                "stamina": 1
+            }
+            special_atks.append(special_atk)
+
+
+
+
+def gravity_z():
+    if player["current_fruit"]:
+        pos = pygame.mouse.get_pos()
+        special_atk = {
+            "x": 0,
+            "direction": "down",
+            "y": 0,
+            "image": player["current_fruit"]["left_atk"],
+            "rect": pygame.Rect(pos[0] - player["current_fruit"]["left_atk"].get_width() / 2, pos[1], 90, 90),
+            "stamina": 1
+        }
+        
+        special_atks.append(special_atk)
+
+
+def warp_z():
+    if player["current_fruit"]:
+        pos = pygame.mouse.get_pos()
+        directions = [
+            "right",
+            "left",
+            "up",
+            "down",
+            "up and right",
+            "up and left",
+            "down and right",
+            "down and left"
+        ]
+        for i in range(len(directions)):
+            special_atk = {
+                "x": 0,
+                "direction": directions[i],
+                "y": 0,
+                "image": player["current_fruit"]["left_atk"],
+                "rect": pygame.Rect(pos[0] - player["current_fruit"]["left_atk"].get_width() / 2, pos[1] - player["current_fruit"]["left_atk"].get_height() / 2, 90, 90),
+                "stamina": 1
+            }
+            special_atks.append(special_atk)
+            
+
+
+
+
+
+
+def god_z():
+    if player["current_fruit"]:
+        if direction == "left" or direction == "right":
+            fruit = player["current_fruit"]
+            fruit_x = center_x - pic.get_width() / 2
+            fruit_y = center_y - pic.get_height() / 2
+            special_atk = {
+                "x": fruit_x,
+                "direction": "all",
+                "y": fruit_y,
+                "image": player["current_fruit"]["left_atk"],
+                "rect": pygame.Rect(fruit_x, fruit_y, 90, 90),
+                "stamina": 1
+            }
+            special_atks.append(special_atk)
+            special_atk = {
+                "x": fruit_x,
+                "direction": "all",
+                "y": fruit_y,
+                "image": player["current_fruit"]["left_atk"],
+                "rect": pygame.Rect(fruit_x, fruit_y + player["image"].get_height(), 90, 90),
+                "stamina": 1
+            }
+            special_atks.append(special_atk)
+            special_atk = {
+                "x": fruit_x,
+                "direction": "all",
+                "y": fruit_y,
+                "image": player["current_fruit"]["left_atk"],
+                "rect": pygame.Rect(fruit_x, fruit_y - player["image"].get_height() / 2, 90, 90),
+                "stamina": 1
+            }
+            special_atks.append(special_atk)
+        else:
+            fruit = player["current_fruit"]
+            fruit_x = center_x - pic.get_width() / 2
+            fruit_y = center_y - pic.get_height() / 2
+            special_atk = {
+                "x": fruit_x,
+                "direction": "all",
+                "y": fruit_y,
+                "image": player["current_fruit"]["left_atk"],
+                "rect": pygame.Rect(fruit_x, fruit_y, 90, 90),
+                "stamina": 1
+            }
+            special_atks.append(special_atk)
+            special_atk = {
+                "x": fruit_x,
+                "direction": "all",
+                "y": fruit_y,
+                "image": player["current_fruit"]["left_atk"],
+                "rect": pygame.Rect(fruit_x - player["image"].get_width() / 2, fruit_y, 90, 90),
+                "stamina": 1
+            }
+            special_atks.append(special_atk)
+            special_atk = {
+                "x": fruit_x,
+                "direction": "all",
+                "y": fruit_y,
+                "image": player["current_fruit"]["left_atk"],
+                "rect": pygame.Rect(fruit_x + player["image"].get_width(), fruit_y, 90, 90),
                 "stamina": 1
             }
             special_atks.append(special_atk)
@@ -1470,10 +1588,10 @@ island_fruits = [
             "down_atk": pygame.image.load("fruits/attacks/buddha.png"),
             "type": "LIGHT",
             "damage": 90,
-            "special": ultra_z,
-            "special_name": "Divine Light",
-            "specialtwo": rubber_z,
-            "special_nametwo": "Star Light",
+            "special": rubber_z,
+            "special_name": "Star Shot",
+            "specialtwo": super_z,
+            "special_nametwo": "Divine Light",
             "range": 20,
             "cool": 4
         },
@@ -1491,8 +1609,8 @@ island_fruits = [
             "down_atk": pygame.transform.scale(pygame.image.load("fruits/attacks/meteor.png"), (pygame.image.load("fruits/attacks/meteor.png").get_width() * 2, pygame.image.load("fruits/attacks/meteor.png").get_height() * 2)),
             "type": "MAGMA",
             "damage": 77,
-            "special": dash_z,
-            "special_name": "Magma Dash",
+            "special": gravity_z,
+            "special_name": "Magma Summon",
             "specialtwo": super_z,
             "special_nametwo": "Magma Meteors",
             "range": 1,
@@ -1517,10 +1635,10 @@ island_fruits = [
             "rect2": pygame.Rect(center_x - 170, center_y, 130, 130),
             "damage": 300,
             "special": transform_z,
-            "special_name": "Shift",
+            "special_name": "Transform",
             "special_image": pygame.image.load("fruits/attacks/buddha.png"),
-            "specialtwo": super_z,
-            "special_nametwo": "Light Meteors",
+            "specialtwo": dash_z,
+            "special_nametwo": "Buddha Dash",
             "range": 1,
             "cool": 6
         },
@@ -1584,14 +1702,14 @@ island_fruits = [
             "up_atk": pygame.transform.flip(wispy, True, False),
             "down_atk": pygame.transform.flip(wispy, True, False),
             "type": "PAIN",
-            "damage": 600,
+            "damage": 800,
             "normal": rubber_z,
-            "special": rubber_z,
+            "special": god_z,
             "special_name": "Angony Chase",
-            "specialtwo": ultra_z,
-            "special_nametwo": "Demonic Erupt",
+            "specialtwo": warp_z,
+            "special_nametwo": "Rage Summon",
             "range": 10,
-            "cool": 4
+            "cool": 6
         }
     ],
 ##Fifth island fruits
@@ -1616,7 +1734,7 @@ island_fruits = [
             "specialtwo": bombing,
             "special_nametwo": "Bombly Downfall",
             "range": 2,
-            "cool": 50
+            "cool": 10
         },
         {
             "image": pygame.image.load("fruits/shopping/Bomb_Fruit.png"),
@@ -1664,7 +1782,7 @@ island_fruits = [
             "specialtwo": bombing,
             "special_nametwo": "Bombly Downfall",
             "range": 2,
-            "cool": 6
+            "cool": 10
         },
         {
             "image": pygame.image.load("fruits/shopping/Bomb_Fruit.png"),
@@ -1706,8 +1824,8 @@ island_fruits = [
             "up_atk": pygame.image.load("fruits/attacks/Lightning.png"),
             "down_atk": pygame.image.load("fruits/attacks/Lightning.png"),
             "type": "THUNDER",
-            "damage": 900,
-            "special": rubber_z,
+            "damage": 500,
+            "special": god_z,
             "special_name": "Sky Wraith",
             "specialtwo": super_z,
             "special_nametwo": "Thunder Storm",
@@ -1727,7 +1845,7 @@ island_fruits = [
             "up_atk": pygame.image.load("fruits/attacks/dragonup.png"),
             "down_atk": pygame.transform.flip(pygame.image.load("fruits/attacks/dragonup.png"), False, True),
             "type": "FLAME",
-            "damage": 600,
+            "damage": 300,
             "normal": rubber_z,
             "special": rubber_z,
             "special_name": "Fire Pistol",
@@ -1897,7 +2015,7 @@ def draw_NPC():
         if island.enemy_name != "":
             key = pygame.key.get_pressed()
             screen.blit(blox_fruit_dealer["image"], blox_fruit_dealer["rect"])
-            label = pygame.font.Font(None, 25).render(f"Block Fruit Dealer", True, (255, 255, 255))
+            label = pygame.font.Font(None, 25).render(f"Blox Fruit Dealer", True, (255, 255, 255))
             screen.blit(label, (blox_fruit_dealer["rect"].x + 10, blox_fruit_dealer["rect"].y + 110))
             if blox_fruit_dealer["rect"].colliderect(player["rect"]) and not already_fruit:         
                 screen.blit(super_small.render("[E]Buy Block Fruit", True, (255, 255, 255)), (blox_fruit_dealer["rect"].x, blox_fruit_dealer["rect"].y + 190))
@@ -2058,9 +2176,8 @@ while running:
                             player["money"] -= 1000
                             
                             player["health"] += 10
-                            if player["health"] == 100:
+                            if player["health"] >= player["max_health"]:
                                 player["max_health"] += 10
-                            print(player["health"])
                     elif pygame.Rect(width - 290, center_y + 100, 140, 50).collidepoint(pos):
                         page = "home"
                         chatting = False
@@ -2136,6 +2253,7 @@ while running:
                 }
                 bombs.append(bomb)
         start_time = pygame.time.get_ticks()
+    
     if not raining:
         bombs.clear()
                 
@@ -2186,7 +2304,8 @@ while running:
         musicnow = "Drip_Fruits.mp3"
     else:
         musicnow = "enemys.mp3"
-    
+    if player["health"] < player["max_health"]:
+        player["health"] += 0.05
     draw_quest_npc()
     if questing:
         draw_quest()
